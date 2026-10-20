@@ -22,7 +22,7 @@
       --night-deep: #080714;
       --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
       --font-serif: 'Playfair Display', Georgia, serif;
-      --flower-size: clamp(190px, 52vmin, 255px);
+      --flower-size: clamp(195px, 53vmin, 260px);
     }
 
     * {
@@ -318,7 +318,7 @@
     }
 
     /* ==========================================================
-       GRAND PLANT: ELEGANT ORGANIC SPROUTING ARCHITECTURE
+       GRAND PLANT: REAL ORGANIC SPROUTING ARCHITECTURE
        ========================================================== */
     .grand-plant {
       position: fixed;
@@ -340,7 +340,7 @@
       visibility: visible;
     }
 
-    /* Grand Stem: Grows from bottom to base of flower without distortion */
+    /* Grand Stem: Anchored at ground, stretches upward smoothly */
     .grand-stem {
       position: absolute;
       bottom: 0;
@@ -392,37 +392,36 @@
       }
     }
 
-    /* Calyx: Green sepals cupping the base under the rose */
+    /* Calyx: 5 pointed green sepals behind Layer 0 cradling the base */
     .grand-calyx {
       position: absolute;
-      bottom: -8px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 35px;
-      z-index: 3; /* Behind .grand-rose */
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      z-index: 1; /* BEHIND all petals */
       pointer-events: none;
-      display: flex;
-      justify-content: center;
     }
 
     .sepal {
       position: absolute;
-      top: 0;
-      width: 13px;
-      height: 30px;
+      left: 50%;
+      top: 50%;
+      width: 15px;
+      height: 72px;
       border-radius: 50% 50% 20% 20%;
-      background: linear-gradient(180deg, #4ade80 0%, #15803d 85%);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      transform-origin: top center;
+      background: linear-gradient(180deg, #34d399 0%, #16a34a 40%, #14532d 100%);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+      transform-origin: 50% 100%;
       transition: transform 0.8s cubic-bezier(0.18, 0.88, 0.28, 1);
     }
 
-    .sepal.s1 { transform: rotate(-65deg) translate(-18px, 0px); }
-    .sepal.s2 { transform: rotate(-32deg) translate(-9px, 0px); }
-    .sepal.s3 { transform: rotate(0deg) translate(0, 2px); }
-    .sepal.s4 { transform: rotate(32deg) translate(9px, 0px); }
-    .sepal.s5 { transform: rotate(65deg) translate(18px, 0px); }
+    .sepal.s1 { transform: translate(-50%, -50%) rotate(-72deg) translateY(-26px); }
+    .sepal.s2 { transform: translate(-50%, -50%) rotate(-36deg) translateY(-30px); }
+    .sepal.s3 { transform: translate(-50%, -50%) rotate(0deg) translateY(-32px); }
+    .sepal.s4 { transform: translate(-50%, -50%) rotate(36deg) translateY(-30px); }
+    .sepal.s5 { transform: translate(-50%, -50%) rotate(72deg) translateY(-26px); }
 
     /* Grand Rose Flower Container */
     .grand-rose {
@@ -438,62 +437,128 @@
       inset: 0;
     }
 
-    /* PETAL IN CLOSED BUD STATE: Plump, velvety, natural rosebud shape (NO SQUISHING!) */
+    /* ==========================================================
+       MULTI-LAYERED ENGLISH ROSE PETALS (NO premature "lộ"!)
+       ========================================================== */
     .rose-petal {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 44%;
-      height: 68%;
-      border-radius: 75% 75% 28% 28%;
-      background: radial-gradient(ellipse at 45% 18%, #fff8f0 0%, #ffafd1 28%, #ec5493 64%, #941753 100%);
-      border: 1px solid rgba(255, 230, 240, 0.75);
-      box-shadow: inset 8px 4px 18px rgba(255, 255, 255, 0.6), inset -8px -8px 18px rgba(110, 12, 60, 0.6);
+      border-radius: 50% 50% 42% 42% / 60% 60% 35% 35%;
+      border: 1px solid rgba(255, 235, 245, 0.45);
+      box-shadow: 0 4px 14px rgba(76, 5, 25, 0.35), inset 0 2px 8px rgba(255, 255, 255, 0.65), inset 0 -4px 10px rgba(159, 18, 57, 0.4);
       transform-origin: 50% 92%;
-      /* Closed bud: harmonious overlapping spirals */
-      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.16)) scale(0.28, 0.58);
-      opacity: 0.95;
-      transition: transform 0.4s ease;
+      transition: transform 0.5s ease;
     }
 
-    /* PETAL BLOOMING: Unfurls in lush circular waves */
-    .grand-rose.bloomed .rose-petal {
-      animation: roseUnfurl 1.15s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
+    /* Layer 0: Outer broad petals (12 petals) */
+    .rose-petal.layer-0 {
+      width: 48%;
+      height: 64%;
+      background: radial-gradient(ellipse at 50% 18%, #fffaf5 0%, #ff8fb7 28%, #e11d48 68%, #881337 100%);
+      z-index: 2;
+      /* Tight bud state */
+      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.14)) scale(0.30, 0.62);
+    }
+    .grand-rose.bloomed .rose-petal.layer-0 {
+      animation: unfurlL0 1.15s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
+    }
+    @keyframes unfurlL0 {
+      100% {
+        transform: translate(-50%, -90%) rotate(var(--angle)) scale(1);
+      }
     }
 
-    .rose-petal[style*="--layer:1"] {
-      width: 37%;
-      height: 57%;
-      filter: brightness(1.08);
-      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.16)) scale(0.24, 0.50);
+    /* Layer 1: Mid-outer petals (10 petals) */
+    .rose-petal.layer-1 {
+      width: 42%;
+      height: 56%;
+      background: radial-gradient(ellipse at 50% 18%, #ffffff 0%, #ffa3c5 28%, #f43f5e 65%, #9f1239 100%);
+      filter: brightness(1.06);
+      z-index: 3;
+      /* Tight bud state */
+      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.14)) scale(0.26, 0.54);
+    }
+    .grand-rose.bloomed .rose-petal.layer-1 {
+      animation: unfurlL1 1.15s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
+    }
+    @keyframes unfurlL1 {
+      100% {
+        transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.85);
+      }
     }
 
-    .rose-petal[style*="--layer:2"] {
-      width: 32%;
-      height: 49%;
-      filter: brightness(1.15);
-      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.16)) scale(0.18, 0.42);
+    /* Layer 2: Mid-inner petals (8 petals) */
+    .rose-petal.layer-2 {
+      width: 36%;
+      height: 48%;
+      background: radial-gradient(ellipse at 50% 18%, #ffffff 0%, #ffbad2 28%, #fb7185 65%, #be123c 100%);
+      filter: brightness(1.12);
+      z-index: 4;
+      /* Tight bud state */
+      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.14)) scale(0.22, 0.46);
+    }
+    .grand-rose.bloomed .rose-petal.layer-2 {
+      animation: unfurlL2 1.15s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
+    }
+    @keyframes unfurlL2 {
+      100% {
+        transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.70);
+      }
     }
 
-    /* Portrait medallion inside the rose */
+    /* Layer 3: Core Shield petals (6 petals) - Completely seals center! */
+    .rose-petal.layer-3 {
+      width: 30%;
+      height: 40%;
+      background: radial-gradient(ellipse at 50% 18%, #ffffff 0%, #ffd0e0 30%, #f43f5e 70%, #9f1239 100%);
+      filter: brightness(1.18);
+      z-index: 6;
+      /* Firmly covers the center so photo is NEVER exposed early! */
+      transform: translate(-50%, -88%) rotate(calc(var(--angle) * 0.18)) scale(0.22, 0.42);
+    }
+    .grand-rose.bloomed .rose-petal.layer-3 {
+      /* Parts gracefully at 0.75s into the bloom */
+      animation: unfurlCore 0.85s 0.75s cubic-bezier(.17, .85, .15, 1.12) forwards;
+    }
+    @keyframes unfurlCore {
+      100% {
+        transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.55);
+        opacity: 0.95;
+      }
+    }
+
+    /* Portrait Medallion: perfectly hidden until core petals part */
     .grand-rose .portrait {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 53%;
-      height: 53%;
+      width: 48%;
+      height: 48%;
       transform: translate(-50%, -50%) scale(0);
       opacity: 0;
-      z-index: 8;
+      z-index: 7;
       border-radius: 50%;
-      padding: 5px;
-      background: linear-gradient(45deg, #ff81b3, #ffeaa3, #ea85ff);
-      box-shadow: 0 0 35px rgba(255, 240, 190, 0.8), 0 0 65px rgba(255, 130, 185, 0.7);
+      padding: 4px;
+      background: linear-gradient(135deg, #ffe082 0%, #ff80bf 50%, #ffd54f 100%);
+      box-shadow: 0 0 35px rgba(255, 230, 160, 0.9), 0 0 65px rgba(255, 120, 185, 0.75);
       overflow: hidden;
     }
 
     .grand-rose.bloomed .portrait {
-      animation: portraitBloom 0.7s 0.45s cubic-bezier(.17, .9, .18, 1.15) forwards;
+      /* Blooms at 0.75s when core petals part! */
+      animation: portraitBloom 0.75s 0.75s cubic-bezier(.17, .9, .18, 1.15) forwards;
+    }
+
+    @keyframes portraitBloom {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.1);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
 
     .portrait img {
@@ -721,22 +786,6 @@
       to { transform: translate(-50%, -50%) scale(1); }
     }
 
-    @keyframes roseUnfurl {
-      0% {
-        opacity: 0.95;
-        transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.16)) scale(0.28, 0.58);
-      }
-      100% {
-        opacity: 1;
-        transform: translate(-50%, -90%) rotate(var(--angle)) scale(1);
-      }
-    }
-
-    @keyframes portraitBloom {
-      0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    }
-
     @keyframes twinkle {
       0% { opacity: 0.2; transform: scale(0.7); }
       100% { opacity: 1; transform: scale(1.1); }
@@ -758,6 +807,9 @@
         width: clamp(260px, 42vmin, 350px);
         height: calc(100dvh - clamp(160px, 20vh, 200px));
         max-height: 580px;
+      }
+      .grand-stem {
+        width: 12px;
       }
       .grand-leaf.l1 { width: 78px; height: 42px; }
       .grand-leaf.l2 { width: 82px; height: 44px; }
@@ -827,7 +879,7 @@
         <div class="sepal s5"></div>
       </div>
 
-      <!-- The Grand Rose with 31 Petals & Photo -->
+      <!-- The Grand Rose with 36 Multi-Layered Petals & Photo -->
       <div class="grand-rose" id="grandRose">
         <div class="rose-petals" id="rosePetals"></div>
         <div class="portrait">
@@ -883,18 +935,29 @@
       ['#ffd6ea', '#db7cae', '#ffb3d7']
     ];
 
-    // Build the 31 rose petals for the grand rose
-    // Rings: [outer: 14 petals, middle: 10 petals, inner: 7 petals]
-    for (let ring = 0; ring < 3; ring++) {
-      const count = [14, 10, 7][ring];
-      for (let i = 0; i < count; i++) {
+    // Build the 36 Multi-Layered Rose Petals:
+    // Layer 0: 12 outer petals
+    // Layer 1: 10 mid petals
+    // Layer 2: 8 inner petals
+    // Layer 3: 6 core shield petals (protects the center so it is NEVER "lộ" prematurely!)
+    const layers = [
+      { count: 12, rotOffset: 0, delayBase: 0, layerClass: 'layer-0' },
+      { count: 10, rotOffset: 18, delayBase: 0.08, layerClass: 'layer-1' },
+      { count: 8, rotOffset: 36, delayBase: 0.16, layerClass: 'layer-2' },
+      { count: 6, rotOffset: 54, delayBase: 0.24, layerClass: 'layer-3' }
+    ];
+
+    layers.forEach(l => {
+      for (let i = 0; i < l.count; i++) {
         const p = document.createElement('span');
-        p.className = 'rose-petal';
-        const petalDelay = ring * 0.08 + i * 0.018;
-        p.style.cssText = `--angle:${(i * 360 / count) + (ring * 12)}deg; --pd:${petalDelay.toFixed(3)}s; --layer:${ring};`;
+        p.className = `rose-petal ${l.layerClass}`;
+        const angle = (i * 360 / l.count) + l.rotOffset;
+        const pd = (l.delayBase + i * 0.018).toFixed(3);
+        p.style.setProperty('--angle', angle + 'deg');
+        p.style.setProperty('--pd', pd + 's');
         rosePetals.append(p);
       }
-    }
+    });
 
     // Garden flowers planting
     function plant() {
@@ -959,7 +1022,7 @@
       plant();
       heartsUp();
 
-      // 3. Grand Rose Plant emerges smoothly: stem rises with the plump rosebud (0ms)
+      // 3. Grand Rose Plant emerges: stem rises with the plump rosebud (0ms)
       grandPlant.classList.add('active', 'growing');
 
       // 4. Petals unfurl as soon as stem reaches height (~1050ms)
@@ -967,10 +1030,10 @@
         grandRose.classList.add('bloomed');
       }, 1050);
 
-      // 5. Popup greeting card is delayed so user can fully admire the flower and photo! (~3800ms)
+      // 5. Popup greeting card delayed to 4.0s so viewer enjoys the blooming rose & photo!
       setTimeout(() => {
         cardOverlay.classList.add('show');
-      }, 3800);
+      }, 4000);
 
       if (musicOn) {
         playMusic();
@@ -989,6 +1052,7 @@
 
     document.getElementById('again').onclick = () => {
       started = false;
+      cardOverlay.classList.remove('show');
       start();
     };
 
