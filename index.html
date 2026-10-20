@@ -22,6 +22,7 @@
       --night-deep: #080714;
       --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
       --font-serif: 'Playfair Display', Georgia, serif;
+      --flower-size: clamp(190px, 52vmin, 255px);
     }
 
     * {
@@ -125,7 +126,7 @@
       height: var(--height);
       transform: translateX(-50%) scale(0);
       transform-origin: bottom center;
-      animation: grow 0.65s cubic-bezier(.17, .7, .2, 1) forwards;
+      animation: grow 0.75s cubic-bezier(.17, .7, .2, 1) forwards;
       animation-delay: var(--delay);
     }
 
@@ -178,8 +179,8 @@
       background: linear-gradient(145deg, #ffffff, var(--petal) 48%, var(--deep));
       transform-origin: 50% 90%;
       transform: translate(-50%, -88%) rotate(var(--rot)) scale(0.05);
-      animation: open 0.6s cubic-bezier(.18, .75, .2, 1.2) forwards;
-      animation-delay: calc(var(--delay) + 0.22s);
+      animation: open 0.65s cubic-bezier(.18, .75, .2, 1.2) forwards;
+      animation-delay: calc(var(--delay) + 0.25s);
     }
 
     .center {
@@ -192,8 +193,8 @@
       border-radius: 50%;
       background: radial-gradient(circle, #fffbe6, #ffca36 60%, #c48216);
       box-shadow: 0 0 8px rgba(255, 218, 90, 0.85);
-      animation: centerIn 0.28s cubic-bezier(.2, .9, .3, 1.2) forwards;
-      animation-delay: calc(var(--delay) + 0.4s);
+      animation: centerIn 0.3s cubic-bezier(.2, .9, .3, 1.2) forwards;
+      animation-delay: calc(var(--delay) + 0.45s);
     }
 
     /* Action Toolbar (Music) */
@@ -244,7 +245,7 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 25;
-      transition: opacity 0.25s ease, visibility 0.25s;
+      transition: opacity 0.35s ease, visibility 0.35s;
     }
 
     .intro.hide {
@@ -317,55 +318,119 @@
     }
 
     /* ==========================================================
-       GRAND PLANT: REAL ORGANIC SPROUTING FROM THE GROUND
+       GRAND PLANT: ELEGANT ORGANIC SPROUTING ARCHITECTURE
        ========================================================== */
     .grand-plant {
       position: fixed;
       bottom: 0;
       left: 50%;
-      transform: translateX(-50%) scale(0);
-      transform-origin: bottom center;
+      transform: translateX(-50%);
       width: clamp(210px, 56vmin, 280px);
-      /* Height allows stem to extend gracefully from ground level */
-      height: calc(100dvh - clamp(140px, 24vh, 190px));
+      height: calc(100dvh - clamp(130px, 22vh, 180px));
       max-height: 520px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      z-index: 10;
       pointer-events: none;
+      z-index: 10;
       opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s;
     }
 
-    /* Fast, energetic sprout from the soil (no delay!) */
-    .grand-plant.growing {
-      animation: plantSprout 0.6s cubic-bezier(0.18, 0.88, 0.28, 1.02) forwards;
+    .grand-plant.active {
+      opacity: 1;
+      visibility: visible;
     }
 
-    @keyframes plantSprout {
+    /* Grand Stem: Grows from bottom to base of flower without distortion */
+    .grand-stem {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 0;
+      background: linear-gradient(90deg, #184e34 0%, #3bb16e 45%, #184e34 100%);
+      box-shadow: 0 0 12px rgba(45, 170, 95, 0.5), inset 1px 0 2px rgba(255, 255, 255, 0.4);
+      border-radius: 6px 6px 0 0;
+      z-index: 4;
+    }
+
+    .grand-plant.growing .grand-stem {
+      animation: growStem 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes growStem {
+      0% { height: 0; }
+      100% { height: calc(100% - var(--flower-size)); }
+    }
+
+    /* Grand Rose Head: Rides directly on top of the growing stem */
+    .grand-rose-head {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: var(--flower-size);
+      aspect-ratio: 1;
+      z-index: 6;
+      transition: none;
+    }
+
+    .grand-plant.growing .grand-rose-head {
+      animation: riseFlowerHead 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes riseFlowerHead {
       0% {
-        transform: translateX(-50%) scaleY(0.02) scaleX(0.18);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
+        bottom: 0;
+        transform: translateX(-50%) scale(0.62);
+        opacity: 0.85;
       }
       100% {
+        bottom: calc(100% - var(--flower-size));
         transform: translateX(-50%) scale(1);
         opacity: 1;
       }
     }
 
-    /* Grand Rose flower head */
+    /* Calyx: Green sepals cupping the base under the rose */
+    .grand-calyx {
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 35px;
+      z-index: 3; /* Behind .grand-rose */
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sepal {
+      position: absolute;
+      top: 0;
+      width: 13px;
+      height: 30px;
+      border-radius: 50% 50% 20% 20%;
+      background: linear-gradient(180deg, #4ade80 0%, #15803d 85%);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      transform-origin: top center;
+      transition: transform 0.8s cubic-bezier(0.18, 0.88, 0.28, 1);
+    }
+
+    .sepal.s1 { transform: rotate(-65deg) translate(-18px, 0px); }
+    .sepal.s2 { transform: rotate(-32deg) translate(-9px, 0px); }
+    .sepal.s3 { transform: rotate(0deg) translate(0, 2px); }
+    .sepal.s4 { transform: rotate(32deg) translate(9px, 0px); }
+    .sepal.s5 { transform: rotate(65deg) translate(18px, 0px); }
+
+    /* Grand Rose Flower Container */
     .grand-rose {
       position: relative;
-      width: clamp(190px, 52vmin, 260px);
-      aspect-ratio: 1;
-      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
       filter: drop-shadow(0 0 35px rgba(255, 120, 185, 0.75));
-      z-index: 6;
-      transition: none;
+      z-index: 5;
     }
 
     .rose-petals {
@@ -373,6 +438,7 @@
       inset: 0;
     }
 
+    /* PETAL IN CLOSED BUD STATE: Plump, velvety, natural rosebud shape (NO SQUISHING!) */
     .rose-petal {
       position: absolute;
       left: 50%;
@@ -384,29 +450,32 @@
       border: 1px solid rgba(255, 230, 240, 0.75);
       box-shadow: inset 8px 4px 18px rgba(255, 255, 255, 0.6), inset -8px -8px 18px rgba(110, 12, 60, 0.6);
       transform-origin: 50% 92%;
-      /* Pre-bloom: visible tight rose bud riding the stem upwards! */
-      transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.06, 0.22);
+      /* Closed bud: harmonious overlapping spirals */
+      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.16)) scale(0.28, 0.58);
       opacity: 0.95;
+      transition: transform 0.4s ease;
     }
 
-    /* Unfurls outward into full 31-petal rose */
+    /* PETAL BLOOMING: Unfurls in lush circular waves */
     .grand-rose.bloomed .rose-petal {
-      animation: roseUnfurl 0.9s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
+      animation: roseUnfurl 1.15s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
     }
 
     .rose-petal[style*="--layer:1"] {
       width: 37%;
       height: 57%;
       filter: brightness(1.08);
+      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.16)) scale(0.24, 0.50);
     }
 
     .rose-petal[style*="--layer:2"] {
       width: 32%;
       height: 49%;
       filter: brightness(1.15);
+      transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.16)) scale(0.18, 0.42);
     }
 
-    /* Beloved Portrait nested inside the blooming rose */
+    /* Portrait medallion inside the rose */
     .grand-rose .portrait {
       position: absolute;
       left: 50%;
@@ -415,16 +484,16 @@
       height: 53%;
       transform: translate(-50%, -50%) scale(0);
       opacity: 0;
-      z-index: 5;
+      z-index: 8;
       border-radius: 50%;
       padding: 5px;
       background: linear-gradient(45deg, #ff81b3, #ffeaa3, #ea85ff);
       box-shadow: 0 0 35px rgba(255, 240, 190, 0.8), 0 0 65px rgba(255, 130, 185, 0.7);
+      overflow: hidden;
     }
 
     .grand-rose.bloomed .portrait {
-      /* Portrait blooms early at 0.3s into petal unfurl */
-      animation: portraitBloom 0.6s 0.3s cubic-bezier(.17, .9, .18, 1.15) forwards;
+      animation: portraitBloom 0.7s 0.45s cubic-bezier(.17, .9, .18, 1.15) forwards;
     }
 
     .portrait img {
@@ -436,56 +505,14 @@
       display: block;
     }
 
-    /* Calyx (Đài hoa xanh ôm sau gốc bông hồng) */
-    .grand-calyx {
-      position: absolute;
-      top: 215px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 35px;
-      z-index: 4;
-      display: flex;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .sepal {
-      position: absolute;
-      top: 0;
-      width: 13px;
-      height: 30px;
-      border-radius: 50% 50% 20% 20%;
-      background: linear-gradient(180deg, #38c872 0%, #15803d 85%);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
-      transform-origin: top center;
-    }
-
-    .sepal.s1 { transform: rotate(-65deg) translate(-20px, -4px); }
-    .sepal.s2 { transform: rotate(-32deg) translate(-10px, 0px); }
-    .sepal.s3 { transform: rotate(0deg) translate(0, 2px); }
-    .sepal.s4 { transform: rotate(32deg) translate(10px, 0px); }
-    .sepal.s5 { transform: rotate(65deg) translate(20px, -4px); }
-
-    /* Grand Stem with Botanical Leaves extending to ground */
-    .grand-stem {
-      width: 10px;
-      flex: 1;
-      min-height: 90px;
-      position: relative;
-      margin-top: -10px;
-      border-radius: 6px 6px 0 0;
-      background: linear-gradient(90deg, #184e34 0%, #3bb16e 45%, #184e34 100%);
-      box-shadow: 0 0 12px rgba(45, 170, 95, 0.5), inset 1px 0 2px rgba(255, 255, 255, 0.4);
-      z-index: 3;
-    }
-
-    /* Prominent botanical rose leaves clearly branching left & right */
+    /* Leaves branching out along the stem */
     .grand-leaf {
       position: absolute;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45), 0 0 10px rgba(34, 197, 94, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.4);
       z-index: 5;
+      transform: scale(0);
+      opacity: 0;
     }
 
     .grand-leaf::after {
@@ -496,16 +523,40 @@
       border-radius: inherit;
     }
 
+    /* Unfurl leaves sequentially as stem rises */
+    .grand-plant.growing .grand-leaf.l3 {
+      animation: leafUnfurlLeft 0.55s 0.38s cubic-bezier(0.18, 0.85, 0.3, 1) forwards;
+    }
+    .grand-plant.growing .grand-leaf.l4 {
+      animation: leafUnfurlRight 0.55s 0.52s cubic-bezier(0.18, 0.85, 0.3, 1) forwards;
+    }
+    .grand-plant.growing .grand-leaf.l1 {
+      animation: leafUnfurlLeft 0.55s 0.68s cubic-bezier(0.18, 0.85, 0.3, 1) forwards;
+    }
+    .grand-plant.growing .grand-leaf.l2 {
+      animation: leafUnfurlRight 0.55s 0.82s cubic-bezier(0.18, 0.85, 0.3, 1) forwards;
+    }
+
+    @keyframes leafUnfurlLeft {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      100% { transform: scale(1) rotate(var(--target-rot, -24deg)); opacity: 1; }
+    }
+
+    @keyframes leafUnfurlRight {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      100% { transform: scale(1) rotate(var(--target-rot, 24deg)); opacity: 1; }
+    }
+
     /* Left leaves */
     .grand-leaf.l1 {
-      top: 18px;
+      top: 16px;
       right: calc(100% - 2px);
       width: 68px;
       height: 35px;
       border-radius: 100% 0 100% 0;
       background: linear-gradient(135deg, #6ee7b7 0%, #22c55e 35%, #15803d 75%, #0f5128 100%);
       transform-origin: right center;
-      transform: rotate(-22deg);
+      --target-rot: -22deg;
     }
 
     .grand-leaf.l3 {
@@ -516,33 +567,33 @@
       border-radius: 100% 0 100% 0;
       background: linear-gradient(135deg, #6ee7b7 0%, #22c55e 35%, #15803d 75%, #0f5128 100%);
       transform-origin: right center;
-      transform: rotate(-26deg);
+      --target-rot: -26deg;
     }
 
     /* Right leaves */
     .grand-leaf.l2 {
-      top: 40px;
+      top: 38px;
       left: calc(100% - 2px);
       width: 72px;
       height: 36px;
       border-radius: 0 100% 0 100%;
       background: linear-gradient(225deg, #6ee7b7 0%, #22c55e 35%, #15803d 75%, #0f5128 100%);
       transform-origin: left center;
-      transform: rotate(22deg);
+      --target-rot: 22deg;
     }
 
     .grand-leaf.l4 {
-      top: 110px;
+      top: 108px;
       left: calc(100% - 2px);
       width: 60px;
       height: 32px;
       border-radius: 0 100% 0 100%;
       background: linear-gradient(225deg, #6ee7b7 0%, #22c55e 35%, #15803d 75%, #0f5128 100%);
       transform-origin: left center;
-      transform: rotate(26deg);
+      --target-rot: 26deg;
     }
 
-    /* Rose Thorns on the stem */
+    /* Rose Thorns */
     .thorn {
       position: absolute;
       width: 0;
@@ -551,26 +602,26 @@
       border-bottom: 4px solid transparent;
     }
     .thorn.t1 {
-      top: 30px;
+      top: 28px;
       left: -6px;
       border-right: 7px solid #228b4c;
       transform: rotate(20deg);
     }
     .thorn.t2 {
-      top: 65px;
+      top: 62px;
       right: -6px;
       border-left: 7px solid #228b4c;
       transform: rotate(-20deg);
     }
     .thorn.t3 {
-      top: 105px;
+      top: 98px;
       left: -6px;
       border-right: 7px solid #228b4c;
       transform: rotate(20deg);
     }
 
     /* ==========================================================
-       GREETING CARD OVERLAY (Slides in at bottom)
+       GREETING CARD OVERLAY (Slides in with graceful delay)
        ========================================================== */
     .card-overlay {
       position: fixed;
@@ -583,27 +634,35 @@
       padding-bottom: max(16px, env(safe-area-inset-bottom));
       z-index: 20;
       pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.6s, opacity 0.6s;
+    }
+
+    .card-overlay.show {
+      visibility: visible;
+      opacity: 1;
     }
 
     .card {
       width: 100%;
       max-width: min(92vw, 410px);
-      background: rgba(14, 13, 30, 0.78);
+      background: rgba(14, 13, 30, 0.82);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 175, 215, 0.28);
       border-radius: 20px;
       padding: 13px 18px 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 108, 163, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 108, 163, 0.18);
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
       pointer-events: auto;
-      transform: translateY(25px);
+      transform: translateY(35px);
       opacity: 0;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
     }
 
     .card-overlay.show .card {
@@ -665,7 +724,7 @@
     @keyframes roseUnfurl {
       0% {
         opacity: 0.95;
-        transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.06, 0.22);
+        transform: translate(-50%, -90%) rotate(calc(var(--angle) * 0.16)) scale(0.28, 0.58);
       }
       100% {
         opacity: 1;
@@ -692,21 +751,18 @@
 
     /* Tablet & Desktop */
     @media (min-width: 640px) {
+      :root {
+        --flower-size: clamp(240px, 40vmin, 320px);
+      }
       .grand-plant {
         width: clamp(260px, 42vmin, 350px);
         height: calc(100dvh - clamp(160px, 20vh, 200px));
         max-height: 580px;
       }
-      .grand-rose {
-        width: clamp(240px, 40vmin, 320px);
-      }
-      .grand-stem {
-        width: 12px;
-      }
-      .grand-leaf.l1 { width: 78px; height: 42px; left: -75px; }
-      .grand-leaf.l2 { width: 82px; height: 44px; right: -78px; }
-      .grand-leaf.l3 { width: 68px; height: 36px; left: -64px; }
-      .grand-leaf.l4 { width: 72px; height: 38px; right: -68px; }
+      .grand-leaf.l1 { width: 78px; height: 42px; }
+      .grand-leaf.l2 { width: 82px; height: 44px; }
+      .grand-leaf.l3 { width: 68px; height: 36px; }
+      .grand-leaf.l4 { width: 72px; height: 38px; }
       .card {
         padding: 18px 24px 20px;
         border-radius: 24px;
@@ -747,26 +803,9 @@
     <div class="hint">Trao gửi yêu thương • Chúc em luôn rạng rỡ</div>
   </div>
 
-  <!-- Step 2: The Grand Plant Growing Organically from Ground -->
+  <!-- Step 2: The Grand Plant (Stem + Rising Rose Head + Leaves) -->
   <div class="grand-plant" id="grandPlant">
-    <!-- Big Rose Head at the top -->
-    <div class="grand-rose" id="grandRose">
-      <div class="rose-petals" id="rosePetals"></div>
-      <div class="portrait">
-        <img id="photo" src="assets/nguoi-yeu.jpg" alt="Ảnh người anh yêu">
-      </div>
-    </div>
-
-    <!-- Calyx (Đài hoa đỡ dưới bông hồng) -->
-    <div class="grand-calyx">
-      <div class="sepal s1"></div>
-      <div class="sepal s2"></div>
-      <div class="sepal s3"></div>
-      <div class="sepal s4"></div>
-      <div class="sepal s5"></div>
-    </div>
-
-    <!-- Grand Stem (Thân cây hoa to nối dài tới đất) -->
+    <!-- Grand Stem (Grows upward from ground) -->
     <div class="grand-stem">
       <div class="grand-leaf l1"></div>
       <div class="grand-leaf l2"></div>
@@ -776,9 +815,29 @@
       <div class="thorn t2"></div>
       <div class="thorn t3"></div>
     </div>
+
+    <!-- Grand Rose Head (Travels up at tip of stem & blooms) -->
+    <div class="grand-rose-head" id="grandRoseHead">
+      <!-- Calyx cupping the rose base behind petals -->
+      <div class="grand-calyx">
+        <div class="sepal s1"></div>
+        <div class="sepal s2"></div>
+        <div class="sepal s3"></div>
+        <div class="sepal s4"></div>
+        <div class="sepal s5"></div>
+      </div>
+
+      <!-- The Grand Rose with 31 Petals & Photo -->
+      <div class="grand-rose" id="grandRose">
+        <div class="rose-petals" id="rosePetals"></div>
+        <div class="portrait">
+          <img id="photo" src="assets/nguoi-yeu.jpg" alt="Ảnh người anh yêu">
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Step 3: Romantic Greeting Card Overlay (at bottom) -->
+  <!-- Step 3: Romantic Greeting Card Overlay (Slides in after flower blooms) -->
   <div class="card-overlay" id="cardOverlay">
     <div class="card">
       <h2>Chúc mừng 20/10, em yêu! 💕</h2>
@@ -882,36 +941,36 @@
       }
     }
 
-    // FAST & ORGANIC SEQUENCE: ZERO DELAY!
+    // CHOREOGRAPHED ELEGANT SEQUENCE
     function start() {
       if (started) return;
       started = true;
 
-      // 1. Instantly hide intro (0.25s)
+      // 1. Instantly hide intro
       intro.classList.add('hide');
 
       // Reset animation classes
-      grandPlant.classList.remove('growing');
+      grandPlant.classList.remove('active', 'growing');
       grandRose.classList.remove('bloomed');
       cardOverlay.classList.remove('show');
       void grandPlant.offsetWidth; // Force CSS reflow
 
-      // 2. Garden flowers sprout immediately
+      // 2. Garden flowers sprout across the ground
       plant();
       heartsUp();
 
-      // 3. Grand Plant shoots up out of the soil IMMEDIATELY (0ms delay!)
-      grandPlant.classList.add('growing');
+      // 3. Grand Rose Plant emerges smoothly: stem rises with the plump rosebud (0ms)
+      grandPlant.classList.add('active', 'growing');
 
-      // 4. Petals unfurl as soon as stem reaches height (~600ms)
+      // 4. Petals unfurl as soon as stem reaches height (~1050ms)
       setTimeout(() => {
         grandRose.classList.add('bloomed');
-      }, 600);
+      }, 1050);
 
-      // 5. Greeting card glides in smoothly (~1100ms)
+      // 5. Popup greeting card is delayed so user can fully admire the flower and photo! (~3800ms)
       setTimeout(() => {
         cardOverlay.classList.add('show');
-      }, 1100);
+      }, 3800);
 
       if (musicOn) {
         playMusic();
