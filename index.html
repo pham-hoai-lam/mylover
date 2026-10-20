@@ -319,98 +319,117 @@
     }
 
     /* ==========================================================
-       THE GRAND CENTERPIECE FLOWER: IDENTICAL NATURE TO GARDEN FLOWERS
+       THE GRAND CENTERPIECE FLOWER: EXACT STRUCTURE OF THE GARDEN FLOWERS
        ========================================================== */
     .flower.grand {
-      left: 50%;
+      position: absolute;
       bottom: 5%;
+      left: 50%;
       width: var(--grand-size);
       height: var(--grand-height);
-      z-index: 15;
+      transform: translateX(-50%) scale(0);
+      transform-origin: bottom center;
+      z-index: 25;
       pointer-events: none;
       visibility: hidden;
-      animation: none;
+      --petal: #ff9ec4;
+      --deep: #d83b84;
       --glow: #ff78b0;
     }
 
-    .flower.grand.growing {
+    .flower.grand.active {
       visibility: visible;
-      animation: grow 0.85s cubic-bezier(.17, .7, .2, 1) forwards;
+      animation: grow 0.75s cubic-bezier(.17, .7, .2, 1) forwards;
     }
 
     .flower.grand .stem {
-      width: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: clamp(8px, 2vw, 11px);
       height: calc(100% - (var(--grand-size) * 0.45));
       border-radius: 100px;
       background: linear-gradient(90deg, #184e34, #3bb16e 45%, #184e34);
-      box-shadow: 0 0 14px rgba(45, 170, 95, 0.45);
+      box-shadow: 0 0 12px rgba(45, 170, 95, 0.45);
       transform: translateX(-50%);
+      transform-origin: bottom center;
     }
 
-    /* Leaves branching out along the stem */
+    /* Leaves: 1 Left, 1 Right - anchored directly to stem center with ZERO detachment */
     .flower.grand .leaf {
-      width: 58px;
-      height: 28px;
-      border-radius: 100% 0 100% 0;
-      background: linear-gradient(135deg, #6ee7b7, #22c55e 40%, #15803d);
+      position: absolute;
+      width: clamp(48px, 14vw, 62px);
+      height: clamp(22px, 6vw, 28px);
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
     }
-    .flower.grand .leaf.l1 { bottom: 25%; transform: rotate(-30deg); }
-    .flower.grand .leaf.l2 { bottom: 38%; transform: translateX(-98%) scaleX(-1) rotate(-30deg); }
-    .flower.grand .leaf.l3 { bottom: 52%; width: 50px; height: 25px; transform: rotate(-25deg); }
-    .flower.grand .leaf.l4 { bottom: 65%; width: 50px; height: 25px; transform: translateX(-98%) scaleX(-1) rotate(-25deg); }
+
+    .flower.grand .leaf.right {
+      left: 50%;
+      bottom: 35%;
+      border-radius: 100% 0 100% 0;
+      background: linear-gradient(135deg, #6ee7b7, #22c55e 40%, #15803d);
+      transform-origin: left bottom;
+      transform: rotate(-32deg);
+    }
+
+    .flower.grand .leaf.left {
+      right: 50%;
+      left: auto;
+      bottom: 48%;
+      border-radius: 0 100% 0 100%;
+      background: linear-gradient(225deg, #6ee7b7, #22c55e 40%, #15803d);
+      transform-origin: right bottom;
+      transform: rotate(32deg);
+    }
 
     .flower.grand .bloom {
+      position: absolute;
+      left: 50%;
       top: 0;
       width: 100%;
       aspect-ratio: 1;
-      filter: drop-shadow(0 0 25px rgba(255, 120, 185, 0.8));
+      transform: translateX(-50%);
+      filter: drop-shadow(0 0 25px rgba(255, 120, 185, 0.85));
     }
 
-    /* Grand Petals: Soft curved oval petals, identical to garden flowers */
+    /* Exactly 8 petals blooming simultaneously like small flowers */
     .flower.grand .petal {
-      width: 38%;
-      height: 55%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 40%;
+      height: 58%;
       border-radius: 55% 55% 45% 45%;
-      background: linear-gradient(145deg, #ffffff, #ffa3c5 40%, #e11d48 95%);
-      box-shadow: 0 4px 14px rgba(136, 19, 55, 0.28);
+      background: linear-gradient(145deg, #ffffff 5%, var(--petal) 48%, var(--deep) 95%);
+      box-shadow: 0 4px 14px rgba(136, 19, 55, 0.25);
       transform-origin: 50% 90%;
       transform: translate(-50%, -88%) rotate(var(--rot)) scale(0.05);
-      animation: none;
     }
 
-    /* Inner layer petals for extra depth and elegance */
-    .flower.grand .petal.inner {
-      width: 32%;
-      height: 48%;
-      background: linear-gradient(145deg, #ffffff, #ffbad2 45%, #be123c 95%);
-      filter: brightness(1.08);
-      z-index: 5;
+    .flower.grand.active .petal {
+      animation: open 0.65s cubic-bezier(.18, .75, .2, 1.2) forwards;
+      animation-delay: 0.25s;
     }
 
-    .flower.grand.bloomed .petal {
-      animation: open 0.85s cubic-bezier(.18, .75, .2, 1.15) forwards;
-      animation-delay: calc(var(--pd, 0) * 0.035s);
-    }
-
-    /* Centerpiece Portrait: blooms at center like the golden core */
+    /* Centerpiece Portrait: zooms in smoothly like the small flower center */
     .flower.grand .portrait {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 44%;
-      height: 44%;
+      width: 42%;
+      height: 42%;
       transform: translate(-50%, -50%) scale(0);
       border-radius: 50%;
       padding: 3.5px;
       background: linear-gradient(135deg, #ffe082 0%, #ff80bf 50%, #ffd54f 100%);
-      box-shadow: 0 0 25px rgba(255, 230, 150, 0.9), 0 0 50px rgba(255, 105, 180, 0.75);
+      box-shadow: 0 0 20px rgba(255, 230, 150, 0.9), 0 0 45px rgba(255, 105, 180, 0.75);
       overflow: hidden;
       z-index: 10;
     }
 
-    .flower.grand.bloomed .portrait {
-      animation: centerIn 0.75s 0.35s cubic-bezier(.2, .9, .3, 1.2) forwards;
+    .flower.grand.active .portrait {
+      animation: centerIn 0.35s cubic-bezier(.2, .9, .3, 1.2) forwards;
+      animation-delay: 0.45s;
     }
 
     .flower.grand .portrait img {
@@ -544,10 +563,10 @@
       .flower.grand .stem {
         width: 12px;
       }
-      .flower.grand .leaf.l1 { width: 68px; height: 34px; }
-      .flower.grand .leaf.l2 { width: 68px; height: 34px; }
-      .flower.grand .leaf.l3 { width: 58px; height: 30px; }
-      .flower.grand .leaf.l4 { width: 58px; height: 30px; }
+      .flower.grand .leaf {
+        width: 68px;
+        height: 32px;
+      }
       .card {
         padding: 18px 24px 20px;
         border-radius: 24px;
@@ -591,10 +610,8 @@
   <!-- Step 2: The Grand Centerpiece Flower (Same architecture as garden flowers) -->
   <div class="flower grand" id="grandFlower">
     <div class="stem"></div>
-    <div class="leaf l1"></div>
-    <div class="leaf right l2"></div>
-    <div class="leaf l3"></div>
-    <div class="leaf right l4"></div>
+    <div class="leaf left"></div>
+    <div class="leaf right"></div>
     <div class="bloom" id="grandBloom">
       <!-- Petals added dynamically in JS -->
       <div class="portrait">
@@ -648,23 +665,12 @@
       ['#ffd6ea', '#db7cae', '#ffb3d7']
     ];
 
-    // Build Grand Flower Petals: 10 outer petals + 8 inner petals (identical soft round shape as small flowers)
-    const grandOuterCount = 10;
-    for (let i = 0; i < grandOuterCount; i++) {
-      const p = document.createElement('span');
-      p.className = 'petal outer';
-      p.style.setProperty('--rot', (i * 36) + 'deg');
-      p.style.setProperty('--pd', i);
-      grandBloom.prepend(p);
-    }
-
-    const grandInnerCount = 8;
-    for (let i = 0; i < grandInnerCount; i++) {
-      const p = document.createElement('span');
-      p.className = 'petal inner';
-      p.style.setProperty('--rot', (i * 45 + 22.5) + 'deg');
-      p.style.setProperty('--pd', i + 2);
-      grandBloom.prepend(p);
+    // Build Grand Flower Petals: Exactly 8 petals at 45deg (identical to garden flowers)
+    for (let p = 0; p < 8; p++) {
+      const petal = document.createElement('span');
+      petal.className = 'petal';
+      petal.style.setProperty('--rot', (p * 45) + 'deg');
+      grandBloom.prepend(petal);
     }
 
     // Garden flowers planting
@@ -712,7 +718,6 @@
       }
     }
 
-    let bloomTimer = null;
     let cardTimer = null;
 
     // CHOREOGRAPHED ELEGANT SEQUENCE
@@ -720,14 +725,13 @@
       if (started) return;
       started = true;
 
-      clearTimeout(bloomTimer);
       clearTimeout(cardTimer);
 
       // 1. Instantly hide intro
       intro.classList.add('hide');
 
       // Reset animation classes
-      grandFlower.classList.remove('growing', 'bloomed');
+      grandFlower.classList.remove('active');
       cardOverlay.classList.remove('show');
       void grandFlower.offsetWidth; // Force CSS reflow
 
@@ -735,15 +739,10 @@
       plant();
       heartsUp();
 
-      // 3. Grand Centerpiece Flower emerges organically from the ground (0ms)
-      grandFlower.classList.add('growing');
+      // 3. Grand Centerpiece Flower emerges and blooms (0ms)
+      grandFlower.classList.add('active');
 
-      // 4. Petals unfurl smoothly with the exact motion of garden flowers (~750ms)
-      bloomTimer = setTimeout(() => {
-        grandFlower.classList.add('bloomed');
-      }, 750);
-
-      // 5. Popup greeting card delayed to 4.0s so viewer enjoys the blooming flower & photo!
+      // 4. Popup greeting card delayed to 4.0s so viewer enjoys the blooming flower & photo!
       cardTimer = setTimeout(() => {
         cardOverlay.classList.add('show');
       }, 4000);
