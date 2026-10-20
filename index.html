@@ -198,38 +198,6 @@
       animation-delay: calc(var(--delay) + 0.45s);
     }
 
-    /* Action Toolbar (Music) */
-    .toolbar {
-      position: fixed;
-      left: max(16px, env(safe-area-inset-left));
-      top: max(16px, env(safe-area-inset-top));
-      z-index: 30;
-    }
-
-    .music-btn {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      color: #fff;
-      border-radius: 30px;
-      padding: 8px 14px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      font-family: var(--font-body);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-    }
-
-    .music-btn:active {
-      transform: scale(0.95);
-      background: rgba(255, 255, 255, 0.22);
-    }
-
     /* Screen Overlay: Intro */
     .intro {
       position: fixed;
@@ -275,16 +243,8 @@
       font-weight: 600;
       color: #fff0f6;
       line-height: 1.25;
-      margin-bottom: 14px;
+      margin-bottom: 24px;
       text-shadow: 0 0 25px rgba(255, 156, 206, 0.5);
-    }
-
-    .intro p {
-      max-width: 320px;
-      font-size: clamp(0.92rem, 3.8vw, 1.05rem);
-      line-height: 1.65;
-      color: #fadce9;
-      margin-bottom: 28px;
     }
 
     .btn {
@@ -293,9 +253,9 @@
       background: linear-gradient(135deg, #ff6fa7 0%, #d83478 60%, #a41c53 100%);
       color: #ffffff;
       border-radius: 100px;
-      padding: 15px 32px;
+      padding: 15px 34px;
       font-weight: 700;
-      font-size: 1.02rem;
+      font-size: 1.05rem;
       font-family: var(--font-body);
       cursor: pointer;
       box-shadow: 0 8px 30px rgba(235, 60, 130, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.5);
@@ -304,18 +264,23 @@
       justify-content: center;
       gap: 8px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: pulse-btn 2.2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-btn {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 30px rgba(235, 60, 130, 0.5);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px rgba(255, 108, 163, 0.75);
+      }
     }
 
     .btn:active {
-      transform: scale(0.96);
+      transform: scale(0.96) !important;
       box-shadow: 0 4px 18px rgba(235, 60, 130, 0.4);
-    }
-
-    .intro .hint {
-      font-size: 0.78rem;
-      opacity: 0.7;
-      margin-top: 18px;
-      color: #ffd8eb;
     }
 
     /* ==========================================================
@@ -331,15 +296,16 @@
       transform-origin: bottom center;
       z-index: 60;
       pointer-events: none;
-      visibility: hidden;
+      display: none;
       --petal: #ff9ec4;
       --deep: #d83b84;
       --glow: #ff78b0;
     }
 
     .flower.grand.active {
-      visibility: visible;
+      display: block;
       animation: grow 0.75s cubic-bezier(.17, .7, .2, 1) forwards;
+      animation-delay: var(--delay, 0.1s);
     }
 
     .flower.grand .stem {
@@ -392,7 +358,7 @@
       width: 100%;
       aspect-ratio: 1;
       transform: translateX(-50%);
-      filter: drop-shadow(0 0 25px rgba(255, 120, 185, 0.85));
+      filter: drop-shadow(0 0 25px var(--glow));
     }
 
     /* Exactly 8 petals blooming simultaneously like small flowers */
@@ -407,11 +373,8 @@
       box-shadow: 0 4px 14px rgba(136, 19, 55, 0.25);
       transform-origin: 50% 90%;
       transform: translate(-50%, -88%) rotate(var(--rot)) scale(0.05);
-    }
-
-    .flower.grand.active .petal {
       animation: open 0.65s cubic-bezier(.18, .75, .2, 1.2) forwards;
-      animation-delay: 0.25s;
+      animation-delay: calc(var(--delay, 0.1s) + 0.25s);
     }
 
     /* Centerpiece Portrait: zooms in smoothly like the small flower center */
@@ -428,11 +391,8 @@
       box-shadow: 0 0 20px rgba(255, 230, 150, 0.9), 0 0 45px rgba(255, 105, 180, 0.75);
       overflow: hidden;
       z-index: 10;
-    }
-
-    .flower.grand.active .portrait {
       animation: centerIn 0.35s cubic-bezier(.2, .9, .3, 1.2) forwards;
-      animation-delay: 0.45s;
+      animation-delay: calc(var(--delay, 0.1s) + 0.45s);
     }
 
     .flower.grand .portrait img {
@@ -596,32 +556,16 @@
     <div class="ground"></div>
   </div>
 
-  <!-- Audio Controls -->
-  <div class="toolbar">
-    <button class="music-btn" id="music" aria-label="Bật hoặc tắt nhạc">♫ Bật nhạc</button>
-  </div>
+  <!-- Background Music (Auto-play when entering web) -->
+  <audio id="bgMusic" src="assets/Phép Màu (Đàn cá gỗ OST) - MAYDAYs ft. Minh Tốc Offical MV.mp3" autoplay preload="auto" loop playsinline></audio>
 
   <!-- Step 1: Romantic Intro Screen -->
   <div class="intro" id="intro">
-    <div class="intro-badge">20 tháng 10</div>
-    <h1>Một khu vườn<br>dành riêng cho em 🌷</h1>
-    <p>Hôm nay là ngày đặc biệt của em. Chạm nhẹ vào đây để xem điều bất ngờ anh gửi tặng nhé...</p>
-    <button class="btn" id="start">Mở món quà 💗</button>
-    <div class="hint">Trao gửi yêu thương • Chúc em luôn rạng rỡ</div>
+    <button class="btn" id="start">Ấn vào đây 💖</button>
   </div>
 
   <!-- Step 2: The Grand Centerpiece Flower (Same architecture as garden flowers) -->
-  <div class="flower grand" id="grandFlower">
-    <div class="stem"></div>
-    <div class="leaf left"></div>
-    <div class="leaf right"></div>
-    <div class="bloom" id="grandBloom">
-      <!-- Petals added dynamically in JS -->
-      <div class="portrait">
-        <img id="photo" src="assets/nguoi-yeu.jpg" alt="Ảnh người anh yêu">
-      </div>
-    </div>
-  </div>
+  <div class="flower grand" id="grandFlower"></div>
 
   <!-- Step 3: Romantic Greeting Card Overlay (Slides in after flower blooms) -->
   <div class="card-overlay" id="cardOverlay">
@@ -637,15 +581,11 @@
     const stars = document.getElementById('stars');
     const hearts = document.getElementById('hearts');
     const grandFlower = document.getElementById('grandFlower');
-    const grandBloom = document.getElementById('grandBloom');
     const cardOverlay = document.getElementById('cardOverlay');
     const intro = document.getElementById('intro');
-    const photo = document.getElementById('photo');
 
+    const bgMusic = document.getElementById('bgMusic');
     let started = false;
-    let audioCtx = null;
-    let notesTimer = null;
-    let musicOn = false;
 
     const rand = (min, max) => Math.random() * (max - min) + min;
 
@@ -667,14 +607,6 @@
       ['#ffb299', '#db5750', '#ff997a'],
       ['#ffd6ea', '#db7cae', '#ffb3d7']
     ];
-
-    // Build Grand Flower Petals: Exactly 8 petals at 45deg (identical to garden flowers)
-    for (let p = 0; p < 8; p++) {
-      const petal = document.createElement('span');
-      petal.className = 'petal';
-      petal.style.setProperty('--rot', (p * 45) + 'deg');
-      grandBloom.prepend(petal);
-    }
 
     // Garden flowers planting
     function plant() {
@@ -709,6 +641,56 @@
       }
     }
 
+    // Build & bloom Grand Centerpiece Flower with identical natural architecture as garden flowers
+    function plantGrandFlower() {
+      grandFlower.replaceChildren();
+      grandFlower.style.setProperty('--delay', '0.08s');
+      grandFlower.style.setProperty('--petal', '#ff9ec4');
+      grandFlower.style.setProperty('--deep', '#d83b84');
+      grandFlower.style.setProperty('--glow', '#ff78b0');
+
+      const stem = document.createElement('div');
+      stem.className = 'stem';
+
+      const leafLeft = document.createElement('div');
+      leafLeft.className = 'leaf left';
+
+      const leafRight = document.createElement('div');
+      leafRight.className = 'leaf right';
+
+      const bloom = document.createElement('div');
+      bloom.className = 'bloom';
+
+      // 8 radial petals blooming outward like the garden flowers
+      for (let p = 0; p < 8; p++) {
+        const petal = document.createElement('span');
+        petal.className = 'petal';
+        petal.style.setProperty('--rot', (p * 45) + 'deg');
+        bloom.append(petal);
+      }
+
+      // Centerpiece girlfriend portrait zooming in smoothly like the small flower center
+      const portrait = document.createElement('div');
+      portrait.className = 'portrait';
+      const img = document.createElement('img');
+      img.id = 'photo';
+      img.src = 'assets/nguoi-yeu.jpg';
+      img.alt = 'Ảnh người anh yêu';
+      img.onerror = function() {
+        this.onerror = null;
+        this.src = 'assets/placeholder.svg';
+      };
+      portrait.append(img);
+      bloom.append(portrait);
+
+      grandFlower.append(stem, leafLeft, leafRight, bloom);
+
+      // Trigger animation cleanly
+      grandFlower.classList.remove('active');
+      void grandFlower.offsetWidth;
+      grandFlower.classList.add('active');
+    }
+
     // Floating hearts
     function heartsUp() {
       hearts.replaceChildren();
@@ -734,34 +716,32 @@
       intro.classList.add('hide');
 
       // Reset animation classes
-      grandFlower.classList.remove('active');
       cardOverlay.classList.remove('show');
-      void grandFlower.offsetWidth; // Force CSS reflow
 
-      // 2. Garden flowers sprout across the ground
+      // 2. Garden flowers sprout across the ground & Grand Centerpiece Flower blooms
       plant();
+      plantGrandFlower();
       heartsUp();
 
-      // 3. Grand Centerpiece Flower emerges and blooms (0ms)
-      grandFlower.classList.add('active');
-
-      // 4. Popup greeting card delayed to 4.0s so viewer enjoys the blooming flower & photo!
+      // 3. Popup greeting card delayed to 4.0s so viewer enjoys the blooming flower & photo!
       cardTimer = setTimeout(() => {
         cardOverlay.classList.add('show');
       }, 4000);
 
-      if (musicOn) {
-        playMusic();
+      playMusic();
+    }
+
+    function playMusic() {
+      if (bgMusic && bgMusic.paused) {
+        const p = bgMusic.play();
+        if (p !== undefined) {
+          p.catch(() => {});
+        }
       }
     }
 
     document.getElementById('start').onclick = () => {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+      playMusic();
       start();
     };
 
@@ -771,49 +751,15 @@
       start();
     };
 
-    photo.onerror = function() {
-      this.onerror = null;
-      this.src = 'assets/placeholder.svg';
-    };
+    // Tự động phát ngay khi vừa vào web
+    playMusic();
+    document.addEventListener('DOMContentLoaded', playMusic);
+    window.addEventListener('load', playMusic);
 
-    // Melody
-    const melody = [392, 440, 523.25, 440, 392, 329.63, 349.23, 392, 440, 523.25, 587.33, 523.25, 440, 392, 349.23, 329.63];
-    let step = 0;
-
-    function tone(freq) {
-      if (!audioCtx) return;
-      try {
-        const o = audioCtx.createOscillator();
-        const g = audioCtx.createGain();
-        o.type = 'sine';
-        o.frequency.value = freq;
-        g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.04, audioCtx.currentTime + 0.04);
-        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.52);
-        o.connect(g).connect(audioCtx.destination);
-        o.start();
-        o.stop(audioCtx.currentTime + 0.54);
-      } catch (err) {}
-    }
-
-    function playMusic() {
-      if (notesTimer) return;
-      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      tone(melody[step++ % melody.length]);
-      notesTimer = setInterval(() => tone(melody[step++ % melody.length]), 500);
-    }
-
-    document.getElementById('music').onclick = () => {
-      musicOn = !musicOn;
-      document.getElementById('music').textContent = musicOn ? '♫ Tắt nhạc' : '♫ Bật nhạc';
-      if (musicOn) {
-        playMusic();
-      } else {
-        clearInterval(notesTimer);
-        notesTimer = null;
-      }
-    };
+    // Dự phòng: phát ngay khi chạm/ấn bất kỳ đâu nếu trình duyệt hạn chế autoplay âm thanh
+    ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown'].forEach(evt => {
+      document.addEventListener(evt, playMusic, { once: true, passive: true });
+    });
   </script>
 </body>
 </html>
