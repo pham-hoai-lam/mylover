@@ -22,7 +22,8 @@
       --night-deep: #080714;
       --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
       --font-serif: 'Playfair Display', Georgia, serif;
-      --rose-size: clamp(190px, 50vmin, 240px);
+      --grand-size: clamp(210px, 56vw, 260px);
+      --grand-height: clamp(380px, 58vh, 460px);
     }
 
     * {
@@ -318,328 +319,101 @@
     }
 
     /* ==========================================================
-       THE GRAND ROSE PLANT: 100% UNIFIED STRUCTURE (ZERO GAPS!)
+       THE GRAND CENTERPIECE FLOWER: IDENTICAL NATURE TO GARDEN FLOWERS
        ========================================================== */
-    .grand-plant {
-      position: absolute;
+    .flower.grand {
+      left: 50%;
       bottom: 5%;
-      left: 50%;
-      transform: translateX(-50%) scale(0);
-      transform-origin: bottom center;
-      width: var(--rose-size);
-      height: clamp(380px, 60vh, 480px);
+      width: var(--grand-size);
+      height: var(--grand-height);
+      z-index: 15;
       pointer-events: none;
-      z-index: 10;
-      opacity: 0;
       visibility: hidden;
-      transition: opacity 0.2s;
+      animation: none;
+      --glow: #ff78b0;
     }
 
-    .grand-plant.active {
+    .flower.grand.growing {
       visibility: visible;
+      animation: grow 0.85s cubic-bezier(.17, .7, .2, 1) forwards;
     }
 
-    /* Natural sprout from ground: zero distortion, zero separation */
-    .grand-plant.growing {
-      animation: sproutGrandPlant 1.0s cubic-bezier(0.16, 0.85, 0.28, 1) forwards;
-    }
-
-    @keyframes sproutGrandPlant {
-      0% {
-        transform: translateX(-50%) scale(0.05);
-        opacity: 0;
-      }
-      15% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateX(-50%) scale(1);
-        opacity: 1;
-      }
-    }
-
-    /* The Grand Rose Flower Head (Positioned at TOP of the plant) */
-    .grand-rose-head {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: var(--rose-size);
-      aspect-ratio: 1;
-      z-index: 6;
-    }
-
-    /* Calyx: 5 pointed green sepals behind Layer 0 cradling the base */
-    .grand-calyx {
-      position: absolute;
-      top: calc(var(--rose-size) - 20px);
-      left: 50%;
-      transform: translateX(-50%);
-      width: 75px;
-      height: 35px;
-      z-index: 2; /* Behind petals */
-      pointer-events: none;
-      display: flex;
-      justify-content: center;
-    }
-
-    .sepal {
-      position: absolute;
-      top: 0;
-      width: 14px;
-      height: 48px;
-      border-radius: 50% 50% 20% 20%;
-      background: linear-gradient(180deg, #34d399 0%, #16a34a 45%, #14532d 100%);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      transform-origin: 50% 100%;
-    }
-
-    .sepal.s1 { transform: rotate(-65deg) translate(-16px, 0px); }
-    .sepal.s2 { transform: rotate(-32deg) translate(-8px, 0px); }
-    .sepal.s3 { transform: rotate(0deg) translate(0, 2px); }
-    .sepal.s4 { transform: rotate(32deg) translate(8px, 0px); }
-    .sepal.s5 { transform: rotate(65deg) translate(16px, 0px); }
-
-    /* The Continuous Botanical Stem: From rose base to ground (NEVER SEVERED!) */
-    .grand-stem {
-      position: absolute;
-      top: calc(var(--rose-size) - 16px);
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+    .flower.grand .stem {
       width: 10px;
-      background: linear-gradient(90deg, #184e34 0%, #3bb16e 45%, #184e34 100%);
-      box-shadow: 0 0 12px rgba(45, 170, 95, 0.5), inset 1px 0 2px rgba(255, 255, 255, 0.4);
-      border-radius: 5px;
-      z-index: 3;
+      height: calc(100% - (var(--grand-size) * 0.45));
+      border-radius: 100px;
+      background: linear-gradient(90deg, #184e34, #3bb16e 45%, #184e34);
+      box-shadow: 0 0 14px rgba(45, 170, 95, 0.45);
+      transform: translateX(-50%);
     }
 
-    /* Botanical Rose Leaves attached directly to stem */
-    .grand-leaf {
-      position: absolute;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 10px rgba(34, 197, 94, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      z-index: 5;
-    }
-
-    .grand-leaf::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-top: 1.5px solid rgba(255, 255, 255, 0.45);
-      border-radius: inherit;
-    }
-
-    /* Left leaves */
-    .grand-leaf.l1 {
-      top: 25px;
-      right: calc(100% - 2px);
+    /* Leaves branching out along the stem */
+    .flower.grand .leaf {
       width: 58px;
-      height: 30px;
-      border-radius: 100% 0 100% 0;
-      background: linear-gradient(135deg, #6ee7b7 0%, #22c55e 35%, #15803d 75%, #0f5128 100%);
-      transform-origin: right center;
-      transform: rotate(-22deg);
-    }
-
-    .grand-leaf.l3 {
-      top: 95px;
-      right: calc(100% - 2px);
-      width: 50px;
-      height: 26px;
-      border-radius: 100% 0 100% 0;
-      background: linear-gradient(135deg, #6ee7b7 0%, #22c55e 35%, #15803d 75%, #0f5128 100%);
-      transform-origin: right center;
-      transform: rotate(-26deg);
-    }
-
-    /* Right leaves */
-    .grand-leaf.l2 {
-      top: 55px;
-      left: calc(100% - 2px);
-      width: 62px;
-      height: 32px;
-      border-radius: 0 100% 0 100%;
-      background: linear-gradient(225deg, #6ee7b7 0%, #22c55e 35%, #15803d 75%, #0f5128 100%);
-      transform-origin: left center;
-      transform: rotate(22deg);
-    }
-
-    .grand-leaf.l4 {
-      top: 125px;
-      left: calc(100% - 2px);
-      width: 52px;
       height: 28px;
-      border-radius: 0 100% 0 100%;
-      background: linear-gradient(225deg, #6ee7b7 0%, #22c55e 35%, #15803d 75%, #0f5128 100%);
-      transform-origin: left center;
-      transform: rotate(26deg);
+      border-radius: 100% 0 100% 0;
+      background: linear-gradient(135deg, #6ee7b7, #22c55e 40%, #15803d);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
     }
+    .flower.grand .leaf.l1 { bottom: 25%; transform: rotate(-30deg); }
+    .flower.grand .leaf.l2 { bottom: 38%; transform: translateX(-98%) scaleX(-1) rotate(-30deg); }
+    .flower.grand .leaf.l3 { bottom: 52%; width: 50px; height: 25px; transform: rotate(-25deg); }
+    .flower.grand .leaf.l4 { bottom: 65%; width: 50px; height: 25px; transform: translateX(-98%) scaleX(-1) rotate(-25deg); }
 
-    /* Rose Thorns on Stem */
-    .thorn {
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-    }
-    .thorn.t1 {
-      top: 28px;
-      left: -6px;
-      border-right: 7px solid #228b4c;
-      transform: rotate(20deg);
-    }
-    .thorn.t2 {
-      top: 65px;
-      right: -6px;
-      border-left: 7px solid #228b4c;
-      transform: rotate(-20deg);
-    }
-    .thorn.t3 {
-      top: 105px;
-      left: -6px;
-      border-right: 7px solid #228b4c;
-      transform: rotate(20deg);
-    }
-
-    /* ==========================================================
-       THE GRAND ROSE: 4-LAYER MULTI-DIMENSIONAL BLOOM
-       ========================================================== */
-    .grand-rose {
-      position: relative;
+    .flower.grand .bloom {
+      top: 0;
       width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 0 35px rgba(255, 120, 185, 0.75));
+      aspect-ratio: 1;
+      filter: drop-shadow(0 0 25px rgba(255, 120, 185, 0.8));
+    }
+
+    /* Grand Petals: Soft curved oval petals, identical to garden flowers */
+    .flower.grand .petal {
+      width: 38%;
+      height: 55%;
+      border-radius: 55% 55% 45% 45%;
+      background: linear-gradient(145deg, #ffffff, #ffa3c5 40%, #e11d48 95%);
+      box-shadow: 0 4px 14px rgba(136, 19, 55, 0.28);
+      transform-origin: 50% 90%;
+      transform: translate(-50%, -88%) rotate(var(--rot)) scale(0.05);
+      animation: none;
+    }
+
+    /* Inner layer petals for extra depth and elegance */
+    .flower.grand .petal.inner {
+      width: 32%;
+      height: 48%;
+      background: linear-gradient(145deg, #ffffff, #ffbad2 45%, #be123c 95%);
+      filter: brightness(1.08);
       z-index: 5;
     }
 
-    .rose-petals {
-      position: absolute;
-      inset: 0;
+    .flower.grand.bloomed .petal {
+      animation: open 0.85s cubic-bezier(.18, .75, .2, 1.15) forwards;
+      animation-delay: calc(var(--pd, 0) * 0.035s);
     }
 
-    /* Organic Curved Rose Petal Silhouette */
-    .rose-petal {
+    /* Centerpiece Portrait: blooms at center like the golden core */
+    .flower.grand .portrait {
       position: absolute;
-      left: 50%;
       top: 50%;
-      border-radius: 50% 50% 42% 42% / 60% 60% 35% 35%;
-      border: 0.5px solid rgba(255, 235, 245, 0.45);
-      box-shadow: 0 4px 14px rgba(76, 5, 25, 0.35), inset 0 2px 6px rgba(255, 255, 255, 0.65), inset 0 -4px 10px rgba(136, 19, 55, 0.35);
-      transform-origin: 50% 92%;
-      transition: transform 0.5s ease;
-    }
-
-    /* Layer 0: Broad Outer Petals (12 petals, scale: 1.0) */
-    .rose-petal.layer-0 {
-      width: 48%;
-      height: 64%;
-      background: radial-gradient(ellipse at 50% 18%, #fffaf5 0%, #ff8fb7 28%, #e11d48 68%, #881337 100%);
-      z-index: 2;
-      /* Radially symmetrical closed bud (360 degrees!) */
-      transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.18, 0.46);
-    }
-    .grand-rose.bloomed .rose-petal.layer-0 {
-      animation: unfurlL0 1.15s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
-    }
-    @keyframes unfurlL0 {
-      100% {
-        transform: translate(-50%, -90%) rotate(var(--angle)) scale(1.0);
-      }
-    }
-
-    /* Layer 1: Mid-Outer Petals (10 petals, scale: 0.85) */
-    .rose-petal.layer-1 {
-      width: 42%;
-      height: 56%;
-      background: radial-gradient(ellipse at 50% 18%, #ffffff 0%, #ffa3c5 28%, #f43f5e 65%, #9f1239 100%);
-      filter: brightness(1.06);
-      z-index: 3;
-      transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.16, 0.42);
-    }
-    .grand-rose.bloomed .rose-petal.layer-1 {
-      animation: unfurlL1 1.15s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
-    }
-    @keyframes unfurlL1 {
-      100% {
-        transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.85);
-      }
-    }
-
-    /* Layer 2: Mid-Inner Petals (8 petals, scale: 0.70) */
-    .rose-petal.layer-2 {
-      width: 36%;
-      height: 48%;
-      background: radial-gradient(ellipse at 50% 18%, #ffffff 0%, #ffbad2 28%, #fb7185 65%, #be123c 100%);
-      filter: brightness(1.12);
-      z-index: 4;
-      transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.14, 0.38);
-    }
-    .grand-rose.bloomed .rose-petal.layer-2 {
-      animation: unfurlL2 1.15s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
-    }
-    @keyframes unfurlL2 {
-      100% {
-        transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.70);
-      }
-    }
-
-    /* Layer 3: Core Shield Petals (6 petals, scale: 0.55) - SEALS CENTER TIGHTLY! */
-    .rose-petal.layer-3 {
-      width: 30%;
-      height: 40%;
-      background: radial-gradient(ellipse at 50% 18%, #ffffff 0%, #ffd0e0 30%, #f43f5e 70%, #9f1239 100%);
-      filter: brightness(1.18);
-      z-index: 6;
-      /* Completely hides center photo until petals open! */
-      transform: translate(-50%, -88%) rotate(var(--angle)) scale(0.15, 0.36);
-    }
-    .grand-rose.bloomed .rose-petal.layer-3 {
-      /* Parts only at 0.7s to reveal the photo! */
-      animation: unfurlCore 0.85s 0.70s cubic-bezier(.17, .85, .15, 1.12) forwards;
-    }
-    @keyframes unfurlCore {
-      100% {
-        transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.55);
-        opacity: 0.95;
-      }
-    }
-
-    /* Portrait Medallion: completely hidden until core petals part */
-    .grand-rose .portrait {
-      position: absolute;
       left: 50%;
-      top: 50%;
-      width: 48%;
-      height: 48%;
+      width: 44%;
+      height: 44%;
       transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      z-index: 7;
       border-radius: 50%;
-      padding: 4px;
+      padding: 3.5px;
       background: linear-gradient(135deg, #ffe082 0%, #ff80bf 50%, #ffd54f 100%);
-      box-shadow: 0 0 35px rgba(255, 230, 160, 0.9), 0 0 65px rgba(255, 120, 185, 0.75);
+      box-shadow: 0 0 25px rgba(255, 230, 150, 0.9), 0 0 50px rgba(255, 105, 180, 0.75);
       overflow: hidden;
+      z-index: 10;
     }
 
-    .grand-rose.bloomed .portrait {
-      /* Photo blooms at 0.75s right as core petals part! */
-      animation: portraitBloom 0.75s 0.75s cubic-bezier(.17, .9, .18, 1.15) forwards;
+    .flower.grand.bloomed .portrait {
+      animation: centerIn 0.75s 0.35s cubic-bezier(.2, .9, .3, 1.2) forwards;
     }
 
-    @keyframes portraitBloom {
-      0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.1);
-      }
-      100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    .portrait img {
+    .flower.grand .portrait img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -764,19 +538,16 @@
     /* Tablet & Desktop */
     @media (min-width: 640px) {
       :root {
-        --rose-size: clamp(230px, 40vmin, 300px);
+        --grand-size: clamp(230px, 38vmin, 290px);
+        --grand-height: clamp(440px, 62vh, 540px);
       }
-      .grand-plant {
-        width: var(--rose-size);
-        height: clamp(440px, 64vh, 560px);
-      }
-      .grand-stem {
+      .flower.grand .stem {
         width: 12px;
       }
-      .grand-leaf.l1 { width: 68px; height: 36px; }
-      .grand-leaf.l2 { width: 72px; height: 38px; }
-      .grand-leaf.l3 { width: 58px; height: 30px; }
-      .grand-leaf.l4 { width: 62px; height: 32px; }
+      .flower.grand .leaf.l1 { width: 68px; height: 34px; }
+      .flower.grand .leaf.l2 { width: 68px; height: 34px; }
+      .flower.grand .leaf.l3 { width: 58px; height: 30px; }
+      .flower.grand .leaf.l4 { width: 58px; height: 30px; }
       .card {
         padding: 18px 24px 20px;
         border-radius: 24px;
@@ -817,35 +588,17 @@
     <div class="hint">Trao gửi yêu thương • Chúc em luôn rạng rỡ</div>
   </div>
 
-  <!-- Step 2: The Unified Grand Rose Plant (100% physically connected!) -->
-  <div class="grand-plant" id="grandPlant">
-    <!-- Continuous stem rooted to ground -->
-    <div class="grand-stem">
-      <div class="grand-leaf l1"></div>
-      <div class="grand-leaf l2"></div>
-      <div class="grand-leaf l3"></div>
-      <div class="grand-leaf l4"></div>
-      <div class="thorn t1"></div>
-      <div class="thorn t2"></div>
-      <div class="thorn t3"></div>
-    </div>
-
-    <!-- Calyx sepals hugging the base of the flower head -->
-    <div class="grand-calyx">
-      <div class="sepal s1"></div>
-      <div class="sepal s2"></div>
-      <div class="sepal s3"></div>
-      <div class="sepal s4"></div>
-      <div class="sepal s5"></div>
-    </div>
-
-    <!-- The Grand Rose Flower Head on top of stem -->
-    <div class="grand-rose-head" id="grandRoseHead">
-      <div class="grand-rose" id="grandRose">
-        <div class="rose-petals" id="rosePetals"></div>
-        <div class="portrait">
-          <img id="photo" src="assets/nguoi-yeu.jpg" alt="Ảnh người anh yêu">
-        </div>
+  <!-- Step 2: The Grand Centerpiece Flower (Same architecture as garden flowers) -->
+  <div class="flower grand" id="grandFlower">
+    <div class="stem"></div>
+    <div class="leaf l1"></div>
+    <div class="leaf right l2"></div>
+    <div class="leaf l3"></div>
+    <div class="leaf right l4"></div>
+    <div class="bloom" id="grandBloom">
+      <!-- Petals added dynamically in JS -->
+      <div class="portrait">
+        <img id="photo" src="assets/nguoi-yeu.jpg" alt="Ảnh người anh yêu">
       </div>
     </div>
   </div>
@@ -863,9 +616,8 @@
     const scene = document.getElementById('scene');
     const stars = document.getElementById('stars');
     const hearts = document.getElementById('hearts');
-    const grandPlant = document.getElementById('grandPlant');
-    const grandRose = document.getElementById('grandRose');
-    const rosePetals = document.getElementById('rosePetals');
+    const grandFlower = document.getElementById('grandFlower');
+    const grandBloom = document.getElementById('grandBloom');
     const cardOverlay = document.getElementById('cardOverlay');
     const intro = document.getElementById('intro');
     const photo = document.getElementById('photo');
@@ -896,33 +648,28 @@
       ['#ffd6ea', '#db7cae', '#ffb3d7']
     ];
 
-    // Build the 36 Multi-Layered Rose Petals:
-    // Layer 0: 12 outer petals
-    // Layer 1: 10 mid petals
-    // Layer 2: 8 inner petals
-    // Layer 3: 6 core shield petals (protects the center so it is NEVER "lộ" prematurely!)
-    const layers = [
-      { count: 12, rotOffset: 0, delayBase: 0, layerClass: 'layer-0' },
-      { count: 10, rotOffset: 18, delayBase: 0.08, layerClass: 'layer-1' },
-      { count: 8, rotOffset: 36, delayBase: 0.16, layerClass: 'layer-2' },
-      { count: 6, rotOffset: 54, delayBase: 0.24, layerClass: 'layer-3' }
-    ];
+    // Build Grand Flower Petals: 10 outer petals + 8 inner petals (identical soft round shape as small flowers)
+    const grandOuterCount = 10;
+    for (let i = 0; i < grandOuterCount; i++) {
+      const p = document.createElement('span');
+      p.className = 'petal outer';
+      p.style.setProperty('--rot', (i * 36) + 'deg');
+      p.style.setProperty('--pd', i);
+      grandBloom.prepend(p);
+    }
 
-    layers.forEach(l => {
-      for (let i = 0; i < l.count; i++) {
-        const p = document.createElement('span');
-        p.className = `rose-petal ${l.layerClass}`;
-        const angle = (i * 360 / l.count) + l.rotOffset;
-        const pd = (l.delayBase + i * 0.018).toFixed(3);
-        p.style.setProperty('--angle', angle + 'deg');
-        p.style.setProperty('--pd', pd + 's');
-        rosePetals.append(p);
-      }
-    });
+    const grandInnerCount = 8;
+    for (let i = 0; i < grandInnerCount; i++) {
+      const p = document.createElement('span');
+      p.className = 'petal inner';
+      p.style.setProperty('--rot', (i * 45 + 22.5) + 'deg');
+      p.style.setProperty('--pd', i + 2);
+      grandBloom.prepend(p);
+    }
 
     // Garden flowers planting
     function plant() {
-      scene.querySelectorAll('.flower').forEach(f => f.remove());
+      scene.querySelectorAll('.flower:not(.grand)').forEach(f => f.remove());
       const isMobile = window.innerWidth < 640;
       const count = isMobile ? 22 : 36;
 
@@ -965,34 +712,39 @@
       }
     }
 
+    let bloomTimer = null;
+    let cardTimer = null;
+
     // CHOREOGRAPHED ELEGANT SEQUENCE
     function start() {
       if (started) return;
       started = true;
 
+      clearTimeout(bloomTimer);
+      clearTimeout(cardTimer);
+
       // 1. Instantly hide intro
       intro.classList.add('hide');
 
       // Reset animation classes
-      grandPlant.classList.remove('active', 'growing');
-      grandRose.classList.remove('bloomed');
+      grandFlower.classList.remove('growing', 'bloomed');
       cardOverlay.classList.remove('show');
-      void grandPlant.offsetWidth; // Force CSS reflow
+      void grandFlower.offsetWidth; // Force CSS reflow
 
       // 2. Garden flowers sprout across the ground
       plant();
       heartsUp();
 
-      // 3. Grand Rose Plant emerges smoothly: stem and flower head rise as ONE (0ms)
-      grandPlant.classList.add('active', 'growing');
+      // 3. Grand Centerpiece Flower emerges organically from the ground (0ms)
+      grandFlower.classList.add('growing');
 
-      // 4. Petals unfurl as soon as plant reaches height (~1000ms)
-      setTimeout(() => {
-        grandRose.classList.add('bloomed');
-      }, 1000);
+      // 4. Petals unfurl smoothly with the exact motion of garden flowers (~750ms)
+      bloomTimer = setTimeout(() => {
+        grandFlower.classList.add('bloomed');
+      }, 750);
 
-      // 5. Popup greeting card delayed to 4.0s so viewer enjoys the blooming rose & photo!
-      setTimeout(() => {
+      // 5. Popup greeting card delayed to 4.0s so viewer enjoys the blooming flower & photo!
+      cardTimer = setTimeout(() => {
         cardOverlay.classList.add('show');
       }, 4000);
 
