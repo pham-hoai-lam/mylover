@@ -1,39 +1,812 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Vườn hoa dành cho em 🌷</title>
-<style>
-:root{color-scheme:dark;--pink:#ff9cce;--cream:#fff3e9}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#080c22;color:var(--cream)}body{background:radial-gradient(ellipse at 50% 90%,#273b47 0%,#111a32 44%,#080c22 85%)}.stars{position:fixed;inset:0;pointer-events:none}.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:twinkle 2.5s infinite alternate}.moon{position:absolute;right:11%;top:9%;width:65px;height:65px;border-radius:50%;background:#fff7d9;box-shadow:0 0 45px #fff1a980,0 0 100px #fff1a933}.scene{position:absolute;inset:0;overflow:hidden}.ground{position:absolute;bottom:-5%;width:130%;left:-15%;height:20%;border-radius:50% 50% 0 0;background:linear-gradient(#1b493e,#0b2425);filter:blur(4px)}.flower{position:absolute;bottom:10%;left:var(--x);width:var(--size);height:var(--height);transform:translateX(-50%) scale(0);transform-origin:bottom center;animation:grow 1.7s cubic-bezier(.17,.7,.2,1) forwards;animation-delay:var(--delay)}.stem{position:absolute;bottom:0;left:50%;width:5px;height:77%;border-radius:100%;background:linear-gradient(90deg,#256e54,#70c889,#1e574a);transform:translateX(-50%) rotate(var(--lean));transform-origin:bottom}.leaf{position:absolute;bottom:34%;left:50%;width:35%;height:14%;border-radius:100% 0 100% 0;background:#3d9d72;transform:rotate(-35deg);transform-origin:left bottom}.leaf.right{bottom:48%;transform:translateX(-95%) scaleX(-1) rotate(-35deg)}.bloom{position:absolute;left:50%;top:2%;width:100%;aspect-ratio:1;transform:translateX(-50%);filter:drop-shadow(0 0 12px var(--glow))}.petal{position:absolute;left:50%;top:50%;width:39%;height:58%;border-radius:55% 55% 45% 45%;background:linear-gradient(145deg,#fff8ed,var(--petal) 48%,var(--deep));transform-origin:50% 90%;transform:translate(-50%,-88%) rotate(var(--rot)) scale(.05);animation:open 1.9s cubic-bezier(.18,.75,.2,1.2) forwards;animation-delay:calc(var(--delay) + 1.1s)}.center{position:absolute;top:50%;left:50%;width:25%;height:25%;transform:translate(-50%,-50%) scale(0);border-radius:50%;background:radial-gradient(circle,#fff9b3,#f3bd43 60%,#ad7629);box-shadow:0 0 9px #ffdd77;animation:centerIn .6s forwards;animation-delay:calc(var(--delay) + 2.2s)}.intro,.final{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;z-index:10}.intro{background:#080c22dd;transition:opacity .8s,visibility .8s}.intro.hide{opacity:0;visibility:hidden}.intro h1{font-family:Georgia,serif;font-size:clamp(2rem,7vw,3.5rem);font-weight:400;color:#ffd1e5;margin:0 0 12px}.intro p{max-width:340px;line-height:1.7;color:#f9dfe9}.btn{border:1px solid #ffb9d8;background:linear-gradient(135deg,#ff8fbe,#c64d83);color:white;border-radius:100px;padding:15px 28px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 7px 35px #ff83c64a}.btn:focus-visible{outline:3px solid white;outline-offset:3px}.final{background:linear-gradient(#080c2208,#080c22bc 65%,#080c22e8);opacity:0;visibility:hidden;transition:opacity 1.5s,visibility 1.5s;pointer-events:none}.final.show{opacity:1;visibility:visible;pointer-events:auto}.portrait{width:min(52vw,220px);height:min(52vw,220px);border-radius:50%;padding:7px;background:linear-gradient(45deg,#ff81b3,#fff3bd,#d895ff);box-shadow:0 0 55px #ff9ac36b;animation:float 4s ease-in-out infinite}.portrait img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#35213c}.final h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(2rem,7vw,3.3rem);color:#ffd3e7;margin:20px 0 6px;text-shadow:0 0 20px #ff8bb75e}.final p{max-width:480px;line-height:1.75;margin:8px 0 20px;font-size:clamp(.95rem,3.8vw,1.15rem)}.hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}.heart{position:absolute;bottom:-40px;color:#ff93b9;animation:rise var(--duration) linear infinite;animation-delay:var(--hd)}.toolbar{position:absolute;right:12px;top:12px;z-index:20}.music{background:#ffffff22;border:1px solid #ffffff55;color:white;border-radius:30px;padding:9px 14px;cursor:pointer}.hint{font-size:.75rem;opacity:.65;margin-top:10px}@keyframes grow{from{transform:translateX(-50%) scale(0)}to{transform:translateX(-50%) scale(1)}}@keyframes open{to{transform:translate(-50%,-88%) rotate(var(--rot)) scale(1)}}@keyframes centerIn{to{transform:translate(-50%,-50%) scale(1)}}@keyframes twinkle{to{opacity:.2;transform:scale(.6)}}@keyframes float{50%{transform:translateY(-12px)}}@keyframes rise{to{transform:translateY(-115vh) rotate(35deg);opacity:0}}@media(max-width:600px){.flower{bottom:12%}.final{justify-content:center}.moon{width:48px;height:48px}}@media(prefers-reduced-motion:reduce){.star,.portrait,.heart{animation:none}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <title>Vườn hoa dành cho em 🌷 • 20/10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================
+       MOBILE-FIRST DESIGN SYSTEM (Default: Mobile Devices)
+       ========================================================== */
+    :root {
+      color-scheme: dark;
+      --pink-primary: #ff6ca3;
+      --pink-soft: #ffb8d7;
+      --pink-light: #fff0f6;
+      --pink-dark: #b81b5c;
+      --cream: #fff5ee;
+      --gold: #ffe082;
+      --night-deep: #080714;
+      --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+    }
 
-/* Giant rose: 31 independently opening petals surrounding the actual portrait */
-.final{background:linear-gradient(#080c2200,#080c2277 70%,#080c22e8);justify-content:flex-end;padding-bottom:clamp(16px,3vh,30px)}
-.grand-rose{position:relative;width:min(70vw,420px);aspect-ratio:1;flex-shrink:0;filter:drop-shadow(0 0 30px #ff8dc5aa);margin-bottom:8px;transform:scale(.1);opacity:0}
-.final.show .grand-rose{animation:grandAppear 1.5s cubic-bezier(.12,.8,.2,1.1) forwards}
-.rose-petals{position:absolute;inset:0}
-.rose-petal{position:absolute;left:50%;top:50%;width:43%;height:66%;border-radius:75% 75% 28% 28%;background:radial-gradient(ellipse at 45% 18%,#fff6ed 0%,#ffb1d3 29%,#ef659f 64%,#9b275e 100%);border:1px solid #ffe2ec77;box-shadow:inset 8px 4px 18px #fff8,inset -8px -8px 16px #7b164d77;transform-origin:50% 90%;transform:translate(-50%,-90%) rotate(var(--angle)) scale(.02,.13);opacity:0}
-.grand-rose.bloomed .rose-petal{animation:roseUnfurl 2.8s cubic-bezier(.17,.85,.15,1.13) var(--pd) forwards}
-.rose-petal[style*="--layer:1"]{width:36%;height:56%;filter:brightness(1.08)}.rose-petal[style*="--layer:2"]{width:31%;height:48%;filter:brightness(1.15)}
-.grand-rose .portrait{position:absolute;left:50%;top:50%;width:53%;height:53%;transform:translate(-50%,-50%) scale(0);opacity:0;animation:none;z-index:4;box-shadow:0 0 45px #fff2caaa,0 0 80px #ff9ac388}
-.grand-rose.bloomed .portrait{animation:portraitBloom 1.2s 2.1s cubic-bezier(.17,.9,.18,1.1) forwards}
-.final h2{font-size:clamp(1.5rem,5vw,2.6rem);margin:4px 0}.final p{font-size:clamp(.78rem,2.7vw,1rem);line-height:1.45;margin:4px 0 10px}.final .btn{padding:10px 19px;font-size:.85rem}
-@keyframes grandAppear{to{transform:scale(1);opacity:1}}@keyframes roseUnfurl{10%{opacity:1}to{opacity:1;transform:translate(-50%,-90%) rotate(var(--angle)) scale(1)}}@keyframes portraitBloom{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@media(max-width:600px){.grand-rose{width:min(90vw,380px)}.final{padding-bottom:5vh}}
-</style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+      font-family: var(--font-body);
+      background-color: var(--night-deep);
+      color: var(--cream);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 25%, #251a42 0%, #120e28 50%, #080714 100%);
+      position: relative;
+    }
+
+    /* Fixed ambient backdrop: stars & moon */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: #ffffff;
+      animation: twinkle 2.2s infinite alternate ease-in-out;
+    }
+
+    .moon {
+      position: absolute;
+      right: max(16px, env(safe-area-inset-right));
+      top: max(16px, env(safe-area-inset-top));
+      width: clamp(42px, 12vw, 58px);
+      height: clamp(42px, 12vw, 58px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffdf0 0%, #fff4c2 65%, #fae188 100%);
+      box-shadow: 0 0 25px rgba(255, 244, 194, 0.65), 0 0 70px rgba(255, 230, 140, 0.3);
+      z-index: 2;
+    }
+
+    /* Floating hearts */
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 3;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -30px;
+      color: rgba(255, 140, 185, 0.7);
+      text-shadow: 0 0 10px rgba(255, 110, 165, 0.8);
+      animation: rise var(--duration) linear infinite;
+      animation-delay: var(--hd);
+    }
+
+    /* Garden Scene at bottom */
+    .scene {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: -4%;
+      width: 140%;
+      left: -20%;
+      height: 18%;
+      border-radius: 50% 50% 0 0;
+      background: linear-gradient(180deg, #184334 0%, #0a211d 60%, #040e0d 100%);
+      box-shadow: 0 -8px 25px rgba(10, 33, 29, 0.5);
+    }
+
+    /* Small garden flower elements (rapid growth) */
+    .flower {
+      position: absolute;
+      bottom: 6%;
+      left: var(--x);
+      width: var(--size);
+      height: var(--height);
+      transform: translateX(-50%) scale(0);
+      transform-origin: bottom center;
+      animation: grow 0.85s cubic-bezier(.17, .7, .2, 1) forwards;
+      animation-delay: var(--delay);
+    }
+
+    .stem {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      height: 80%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, #1e5c46, #60b87c, #194b39);
+      transform: translateX(-50%) rotate(var(--lean));
+      transform-origin: bottom center;
+    }
+
+    .leaf {
+      position: absolute;
+      bottom: 35%;
+      left: 50%;
+      width: 32%;
+      height: 14%;
+      border-radius: 100% 0 100% 0;
+      background: linear-gradient(135deg, #42ad7d, #1e6648);
+      transform: rotate(-35deg);
+      transform-origin: left bottom;
+    }
+
+    .leaf.right {
+      bottom: 48%;
+      transform: translateX(-95%) scaleX(-1) rotate(-35deg);
+    }
+
+    .bloom {
+      position: absolute;
+      left: 50%;
+      top: 2%;
+      width: 100%;
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 0 10px var(--glow));
+    }
+
+    .petal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 40%;
+      height: 58%;
+      border-radius: 55% 55% 45% 45%;
+      background: linear-gradient(145deg, #ffffff, var(--petal) 48%, var(--deep));
+      transform-origin: 50% 90%;
+      transform: translate(-50%, -88%) rotate(var(--rot)) scale(0.05);
+      animation: open 0.8s cubic-bezier(.18, .75, .2, 1.2) forwards;
+      animation-delay: calc(var(--delay) + 0.35s);
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 26%;
+      height: 26%;
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+      background: radial-gradient(circle, #fffbe6, #ffca36 60%, #c48216);
+      box-shadow: 0 0 8px rgba(255, 218, 90, 0.85);
+      animation: centerIn 0.35s cubic-bezier(.2, .9, .3, 1.2) forwards;
+      animation-delay: calc(var(--delay) + 0.65s);
+    }
+
+    /* Action Toolbar (Music) */
+    .toolbar {
+      position: fixed;
+      left: max(16px, env(safe-area-inset-left));
+      top: max(16px, env(safe-area-inset-top));
+      z-index: 30;
+    }
+
+    .music-btn {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff;
+      border-radius: 30px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      font-family: var(--font-body);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .music-btn:active {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Screen Overlay: Intro */
+    .intro {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(20px, 6vw, 36px);
+      padding-top: max(24px, env(safe-area-inset-top));
+      padding-bottom: max(24px, env(safe-area-inset-bottom));
+      background: rgba(8, 7, 20, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 25;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+    }
+
+    .intro.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 30px;
+      background: rgba(255, 108, 163, 0.15);
+      border: 1px solid rgba(255, 156, 206, 0.35);
+      color: var(--pink-soft);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .intro h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 7.5vw, 2.8rem);
+      font-weight: 600;
+      color: #fff0f6;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      text-shadow: 0 0 25px rgba(255, 156, 206, 0.5);
+    }
+
+    .intro p {
+      max-width: 320px;
+      font-size: clamp(0.92rem, 3.8vw, 1.05rem);
+      line-height: 1.65;
+      color: #fadce9;
+      margin-bottom: 28px;
+    }
+
+    /* Primary glowing button */
+    .btn {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      background: linear-gradient(135deg, #ff6fa7 0%, #d83478 60%, #a41c53 100%);
+      color: #ffffff;
+      border-radius: 100px;
+      padding: 15px 32px;
+      font-weight: 700;
+      font-size: 1.02rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(235, 60, 130, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 4px 18px rgba(235, 60, 130, 0.4);
+    }
+
+    .intro .hint {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      margin-top: 18px;
+      color: #ffd8eb;
+    }
+
+    /* ==========================================================
+       FINAL STAGE: Mobile-First Layer & Giant Rose
+       ========================================================== */
+    .final {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      padding-top: max(48px, env(safe-area-inset-top));
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+    }
+
+    .final.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* Giant rose container */
+    .grand-rose-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 0;
+    }
+
+    .grand-rose {
+      position: relative;
+      /* Perfect mobile dimension: fits snugly without overflowing */
+      width: clamp(210px, 58vmin, 300px);
+      aspect-ratio: 1;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 35px rgba(255, 120, 185, 0.7));
+      transform: scale(0.08);
+      opacity: 0;
+      transition: none;
+    }
+
+    .final.show .grand-rose {
+      animation: grandAppear 0.9s cubic-bezier(.14, .85, .25, 1.1) forwards;
+    }
+
+    .rose-petals {
+      position: absolute;
+      inset: 0;
+    }
+
+    .rose-petal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 44%;
+      height: 68%;
+      border-radius: 75% 75% 28% 28%;
+      background: radial-gradient(ellipse at 45% 18%, #fff8f0 0%, #ffafd1 28%, #ec5493 64%, #941753 100%);
+      border: 1px solid rgba(255, 230, 240, 0.75);
+      box-shadow: inset 8px 4px 18px rgba(255, 255, 255, 0.6), inset -8px -8px 18px rgba(110, 12, 60, 0.6);
+      transform-origin: 50% 92%;
+      transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.02, 0.12);
+      opacity: 0;
+    }
+
+    /* Fast yet lush petal unfurl animation */
+    .grand-rose.bloomed .rose-petal {
+      animation: roseUnfurl 1.4s cubic-bezier(.17, .85, .15, 1.12) var(--pd) forwards;
+    }
+
+    .rose-petal[style*="--layer:1"] {
+      width: 37%;
+      height: 57%;
+      filter: brightness(1.08);
+    }
+
+    .rose-petal[style*="--layer:2"] {
+      width: 32%;
+      height: 49%;
+      filter: brightness(1.15);
+    }
+
+    /* Beloved Portrait nested inside the blooming rose */
+    .grand-rose .portrait {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 53%;
+      height: 53%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      z-index: 5;
+      border-radius: 50%;
+      padding: 5px;
+      background: linear-gradient(45deg, #ff81b3, #ffeaa3, #ea85ff);
+      box-shadow: 0 0 35px rgba(255, 240, 190, 0.8), 0 0 65px rgba(255, 130, 185, 0.7);
+    }
+
+    .grand-rose.bloomed .portrait {
+      /* Portrait blooms early at 0.7s into the grand-rose sequence */
+      animation: portraitBloom 0.85s 0.7s cubic-bezier(.17, .9, .18, 1.15) forwards;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #2a1533;
+      display: block;
+    }
+
+    /* Glassmorphic Greeting Card on Mobile */
+    .card {
+      width: 100%;
+      max-width: min(92vw, 410px);
+      background: rgba(14, 13, 30, 0.76);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 175, 215, 0.28);
+      border-radius: 20px;
+      padding: 14px 18px 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 108, 163, 0.15);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 6;
+      flex-shrink: 0;
+      transform: translateY(15px);
+      opacity: 0;
+      transition: transform 0.6s 0.8s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.6s 0.8s ease;
+    }
+
+    .final.show .card {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .card h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.35rem, 5.2vw, 1.85rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 0%, #ffc6e0 50%, #ffa3cc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      line-height: 1.25;
+      text-shadow: 0 0 20px rgba(255, 130, 185, 0.3);
+    }
+
+    .card p {
+      font-size: clamp(0.82rem, 3.4vw, 0.94rem);
+      line-height: 1.55;
+      color: #fae5ef;
+      margin: 2px 0 8px;
+    }
+
+    .card .btn-again {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: linear-gradient(135deg, #ff7db3, #cf3c7f);
+      color: white;
+      border-radius: 100px;
+      padding: 9px 22px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(220, 50, 120, 0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .card .btn-again:active {
+      transform: scale(0.95);
+    }
+
+    /* ==========================================================
+       KEYFRAME ANIMATIONS
+       ========================================================== */
+    @keyframes grow {
+      from { transform: translateX(-50%) scale(0); }
+      to { transform: translateX(-50%) scale(1); }
+    }
+
+    @keyframes open {
+      to { transform: translate(-50%, -88%) rotate(var(--rot)) scale(1); }
+    }
+
+    @keyframes centerIn {
+      to { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes grandAppear {
+      0% { transform: scale(0.08); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes roseUnfurl {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -90%) rotate(var(--angle)) scale(0.02, 0.12);
+      }
+      15% { opacity: 1; }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -90%) rotate(var(--angle)) scale(1);
+      }
+    }
+
+    @keyframes portraitBloom {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(0.7); }
+      100% { opacity: 1; transform: scale(1.1); }
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.8; }
+      85% { opacity: 0.8; }
+      100% { transform: translateY(-110vh) rotate(35deg); opacity: 0; }
+    }
+
+    /* ==========================================================
+       LARGER DEVICES (Tablets & Desktops)
+       ========================================================== */
+    @media (min-width: 640px) {
+      .grand-rose {
+        width: clamp(280px, 42vmin, 380px);
+      }
+      .card {
+        padding: 18px 24px 20px;
+        border-radius: 24px;
+        gap: 8px;
+      }
+      .card h2 {
+        font-size: 2rem;
+      }
+      .card p {
+        font-size: 1rem;
+      }
+      .final {
+        padding: 24px;
+        padding-top: max(56px, env(safe-area-inset-top));
+        padding-bottom: max(28px, env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .star, .heart { animation: none; }
+    }
+  </style>
 </head>
 <body>
-<div class="stars" id="stars"></div><div class="moon"></div><div class="scene" id="scene"><div class="ground"></div></div>
-<div class="intro" id="intro"><h1>Một khu vườn dành cho em 🌷</h1><p>Hôm nay, anh muốn tặng em một điều thật đặc biệt. Hãy chạm vào đây và đợi những bông hoa nở nhé...</p><button class="btn" id="start">Mở món quà 💗</button><div class="hint">20 tháng 10 • Dành riêng cho em</div></div>
-<div class="final" id="final"><div class="hearts" id="hearts"></div><div class="grand-rose" id="grandRose"><div class="rose-petals" id="rosePetals"></div><div class="portrait"><img id="photo" src="assets/nguoi-yeu.jpg" alt="Ảnh người anh yêu"></div></div><h2>Chúc mừng 20/10, em yêu! 💕</h2><p id="message">Giữa cả một vườn hoa rực rỡ, em vẫn luôn là bông hoa đẹp nhất trong lòng anh. Cảm ơn em vì đã đến và khiến mỗi ngày của anh thêm dịu dàng. Yêu em rất nhiều! ❤️</p><button class="btn" id="again">Ngắm hoa nở lần nữa 🌸</button></div>
-<div class="toolbar"><button class="music" id="music" aria-label="Bật hoặc tắt nhạc">♫ Bật nhạc</button></div>
-<script>
-const scene=document.getElementById('scene'),stars=document.getElementById('stars'),hearts=document.getElementById('hearts');let started=false,audioCtx,notesTimer,musicOn=false;
-const rand=(a,b)=>Math.random()*(b-a)+a;for(let i=0;i<90;i++){const s=document.createElement('i');s.className='star';s.style.left=rand(0,100)+'%';s.style.top=rand(0,77)+'%';s.style.animationDelay=rand(0,3)+'s';stars.append(s)}
-const colors=[['#ffb0cc','#d95d99','#ff9ac5'],['#d8b5ff','#9364cb','#ba9bff'],['#fff0ac','#e7a65c','#ffe59c'],['#ffc4a4','#d77e78','#ffc4a4'],['#fff1f6','#d9a6ce','#fff2f7']];
-function plant(){scene.querySelectorAll('.flower').forEach(f=>f.remove());const count=innerWidth<650?24:40;for(let i=0;i<count;i++){const f=document.createElement('div'),c=colors[i%colors.length],x=rand(4,96),h=rand(100,innerWidth<650?235:310),size=rand(42,innerWidth<650?80:105),delay=rand(0,5);f.className='flower';f.style.cssText=`--x:${x}%;--height:${h}px;--size:${size}px;--delay:${delay}s;--petal:${c[0]};--deep:${c[1]};--glow:${c[2]};--lean:${rand(-14,14)}deg;z-index:${Math.round(100+h)}`;f.innerHTML='<div class="stem"></div><div class="leaf"></div><div class="leaf right"></div><div class="bloom"></div>';const bloom=f.querySelector('.bloom');for(let p=0;p<8;p++){const petal=document.createElement('span');petal.className='petal';petal.style.setProperty('--rot',p*45+'deg');bloom.append(petal)}const center=document.createElement('span');center.className='center';bloom.append(center);scene.append(f)}}
-const rosePetals=document.getElementById('rosePetals');for(let ring=0;ring<3;ring++){let count=[14,10,7][ring];for(let i=0;i<count;i++){const p=document.createElement('span');p.className='rose-petal';p.style.cssText=`--angle:${i*360/count+ring*11}deg;--pd:${ring*.27+i*.055}s;--layer:${ring}`;rosePetals.append(p)}}
-function heartsUp(){hearts.replaceChildren();for(let i=0;i<25;i++){const e=document.createElement('span');e.className='heart';e.textContent=['♥','♡','✦'][i%3];e.style.cssText=`left:${rand(0,100)}%;font-size:${rand(13,28)}px;--duration:${rand(5,10)}s;--hd:${rand(-10,0)}s`;hearts.append(e)}}
-function start(){if(started)return;started=true;document.getElementById('intro').classList.add('hide');document.getElementById('final').classList.remove('show');plant();heartsUp();setTimeout(()=>{document.getElementById('final').classList.add('show');document.getElementById('grandRose').classList.remove('bloomed');void document.getElementById('grandRose').offsetWidth;document.getElementById('grandRose').classList.add('bloomed')},8200);if(musicOn)playMusic()}
-document.getElementById('start').onclick=start;document.getElementById('again').onclick=()=>{started=false;start()};document.getElementById('photo').onerror=function(){this.onerror=null;this.src='assets/placeholder.svg'};
-const melody=[392,440,523.25,440,392,329.63,349.23,392,440,523.25,587.33,523.25,440,392,349.23,329.63];let step=0;function tone(freq){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=freq;g.gain.setValueAtTime(0.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.035,audioCtx.currentTime+.04);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.5);o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.52)}function playMusic(){if(notesTimer)return;audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();audioCtx.resume();tone(melody[step++%melody.length]);notesTimer=setInterval(()=>tone(melody[step++%melody.length]),550)}document.getElementById('music').onclick=()=>{musicOn=!musicOn;document.getElementById('music').textContent=musicOn?'♫ Tắt nhạc':'♫ Bật nhạc';if(musicOn)playMusic();else{clearInterval(notesTimer);notesTimer=null}};
-</script></body></html>
+  <!-- Ambient Night Sky -->
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <!-- Garden Background -->
+  <div class="scene" id="scene">
+    <div class="ground"></div>
+  </div>
+
+  <!-- Audio Controls -->
+  <div class="toolbar">
+    <button class="music-btn" id="music" aria-label="Bật hoặc tắt nhạc">♫ Bật nhạc</button>
+  </div>
+
+  <!-- Step 1: Romantic Intro Screen -->
+  <div class="intro" id="intro">
+    <div class="intro-badge">20 tháng 10</div>
+    <h1>Một khu vườn<br>dành riêng cho em 🌷</h1>
+    <p>Hôm nay là ngày đặc biệt của em. Chạm nhẹ vào đây để xem điều bất ngờ anh gửi tặng nhé...</p>
+    <button class="btn" id="start">Mở món quà 💗</button>
+    <div class="hint">Trao gửi yêu thương • Chúc em luôn rạng rỡ</div>
+  </div>
+
+  <!-- Step 2: Final Blooming Stage (Grand Rose & Portrait) -->
+  <div class="final" id="final">
+    <div class="grand-rose-wrapper">
+      <div class="grand-rose" id="grandRose">
+        <div class="rose-petals" id="rosePetals"></div>
+        <div class="portrait">
+          <img id="photo" src="assets/nguoi-yeu.jpg" alt="Ảnh người anh yêu">
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile-First Responsive Card for Wishes -->
+    <div class="card">
+      <h2>Chúc mừng 20/10, em yêu! 💕</h2>
+      <p id="message">Giữa cả một vườn hoa rực rỡ ngát hương, em vẫn luôn là bông hoa xinh đẹp và đặc biệt nhất trong lòng anh. Cảm ơn em vì đã đến bên anh. Yêu em thật nhiều! ❤️</p>
+      <button class="btn-again" id="again">Ngắm hoa nở lần nữa 🌸</button>
+    </div>
+  </div>
+
+  <script>
+    const scene = document.getElementById('scene');
+    const stars = document.getElementById('stars');
+    const hearts = document.getElementById('hearts');
+    const grandRose = document.getElementById('grandRose');
+    const rosePetals = document.getElementById('rosePetals');
+    const intro = document.getElementById('intro');
+    const finalView = document.getElementById('final');
+    const photo = document.getElementById('photo');
+
+    let started = false;
+    let audioCtx = null;
+    let notesTimer = null;
+    let musicOn = false;
+
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    // Twinkling stars generator
+    for (let i = 0; i < 75; i++) {
+      const s = document.createElement('i');
+      s.className = 'star';
+      s.style.left = rand(0, 100) + '%';
+      s.style.top = rand(0, 75) + '%';
+      s.style.animationDelay = rand(0, 2.5) + 's';
+      stars.append(s);
+    }
+
+    // Palette of vibrant flower colors
+    const colors = [
+      ['#ff9ec4', '#d83b84', '#ff78b0'],
+      ['#e0baff', '#9458d6', '#be89ff'],
+      ['#ffe68f', '#e5923c', '#ffd766'],
+      ['#ffb299', '#db5750', '#ff997a'],
+      ['#ffd6ea', '#db7cae', '#ffb3d7']
+    ];
+
+    // Build the 31 rose petals for the grand rose
+    // Rings: [outer: 14 petals, middle: 10 petals, inner: 7 petals]
+    for (let ring = 0; ring < 3; ring++) {
+      const count = [14, 10, 7][ring];
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.className = 'rose-petal';
+        // Compact staggered timing: outer petals open first, then middle, then inner
+        const petalDelay = ring * 0.12 + i * 0.025;
+        p.style.cssText = `--angle:${(i * 360 / count) + (ring * 12)}deg; --pd:${petalDelay.toFixed(3)}s; --layer:${ring};`;
+        rosePetals.append(p);
+      }
+    }
+
+    // Grow garden flowers with FAST, snappy bloom timing
+    function plant() {
+      scene.querySelectorAll('.flower').forEach(f => f.remove());
+      const isMobile = window.innerWidth < 640;
+      const count = isMobile ? 22 : 36;
+
+      for (let i = 0; i < count; i++) {
+        const f = document.createElement('div');
+        const c = colors[i % colors.length];
+        const x = rand(3, 97);
+        // Mobile heights keep flowers as a gorgeous bottom framing without blocking the card
+        const h = rand(isMobile ? 70 : 110, isMobile ? 150 : 250);
+        const size = rand(isMobile ? 38 : 55, isMobile ? 65 : 95);
+        // Fast staggered delay: starts between 0s and 0.6s
+        const delay = rand(0, 0.65);
+
+        f.className = 'flower';
+        f.style.cssText = `--x:${x}%;--height:${h}px;--size:${size}px;--delay:${delay.toFixed(2)}s;--petal:${c[0]};--deep:${c[1]};--glow:${c[2]};--lean:${rand(-12, 12)}deg;z-index:${Math.round(10 + h)};`;
+        f.innerHTML = '<div class="stem"></div><div class="leaf"></div><div class="leaf right"></div><div class="bloom"></div>';
+
+        const bloom = f.querySelector('.bloom');
+        for (let p = 0; p < 8; p++) {
+          const petal = document.createElement('span');
+          petal.className = 'petal';
+          petal.style.setProperty('--rot', (p * 45) + 'deg');
+          bloom.append(petal);
+        }
+        const center = document.createElement('span');
+        center.className = 'center';
+        bloom.append(center);
+
+        scene.append(f);
+      }
+    }
+
+    // Rising gentle floating hearts
+    function heartsUp() {
+      hearts.replaceChildren();
+      for (let i = 0; i < 22; i++) {
+        const e = document.createElement('span');
+        e.className = 'heart';
+        e.textContent = ['♥', '♡', '✦'][i % 3];
+        e.style.cssText = `left:${rand(0, 100)}%;font-size:${rand(12, 24)}px;--duration:${rand(4.5, 8.5)}s;--hd:${rand(-8, 0)}s;`;
+        hearts.append(e);
+      }
+    }
+
+    // START EXPERIENCE: Fast transition so user doesn't wait!
+    function start() {
+      if (started) return;
+      started = true;
+
+      // Hide intro immediately
+      intro.classList.add('hide');
+      finalView.classList.remove('show');
+
+      // 1. Plant flowers immediately (they bloom within ~1.2s)
+      plant();
+      heartsUp();
+
+      // 2. Grand rose emerges quickly at 1.8s (was 8.2s!)
+      setTimeout(() => {
+        finalView.classList.add('show');
+        grandRose.classList.remove('bloomed');
+        void grandRose.offsetWidth; // Force CSS reflow
+        grandRose.classList.add('bloomed');
+      }, 1800);
+
+      if (musicOn) {
+        playMusic();
+      }
+    }
+
+    document.getElementById('start').onclick = () => {
+      // Initialize audio context on touch/click to adhere to mobile autoplay restrictions
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      start();
+    };
+
+    document.getElementById('again').onclick = () => {
+      started = false;
+      start();
+    };
+
+    photo.onerror = function() {
+      this.onerror = null;
+      this.src = 'assets/placeholder.svg';
+    };
+
+    // Romantic Pentatonic Chime Melody
+    const melody = [392, 440, 523.25, 440, 392, 329.63, 349.23, 392, 440, 523.25, 587.33, 523.25, 440, 392, 349.23, 329.63];
+    let step = 0;
+
+    function tone(freq) {
+      if (!audioCtx) return;
+      try {
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = 'sine';
+        o.frequency.value = freq;
+        g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.04, audioCtx.currentTime + 0.04);
+        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.52);
+        o.connect(g).connect(audioCtx.destination);
+        o.start();
+        o.stop(audioCtx.currentTime + 0.54);
+      } catch (err) {}
+    }
+
+    function playMusic() {
+      if (notesTimer) return;
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      tone(melody[step++ % melody.length]);
+      notesTimer = setInterval(() => tone(melody[step++ % melody.length]), 500);
+    }
+
+    document.getElementById('music').onclick = () => {
+      musicOn = !musicOn;
+      document.getElementById('music').textContent = musicOn ? '♫ Tắt nhạc' : '♫ Bật nhạc';
+      if (musicOn) {
+        playMusic();
+      } else {
+        clearInterval(notesTimer);
+        notesTimer = null;
+      }
+    };
+  </script>
+</body>
+</html>
