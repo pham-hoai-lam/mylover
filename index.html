@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/nguoi-yeu.jpg">
   <style>
     /* ==========================================================
        MOBILE-FIRST DESIGN SYSTEM (Default: Mobile Devices)
@@ -281,6 +282,21 @@
     .btn:active {
       transform: scale(0.96) !important;
       box-shadow: 0 4px 18px rgba(235, 60, 130, 0.4);
+    }
+
+    .btn.loading {
+      opacity: 0.78;
+      cursor: wait;
+      pointer-events: none;
+      animation: loading-pulse 1.4s infinite ease-in-out;
+      background: linear-gradient(135deg, rgba(255, 111, 167, 0.45), rgba(216, 52, 120, 0.55));
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(235, 60, 130, 0.25);
+    }
+
+    @keyframes loading-pulse {
+      0%, 100% { opacity: 0.65; transform: scale(0.98); }
+      50% { opacity: 0.95; transform: scale(1.01); }
     }
 
     /* ==========================================================
@@ -561,7 +577,7 @@
 
   <!-- Step 1: Romantic Intro Screen -->
   <div class="intro" id="intro">
-    <button class="btn" id="start">Ấn vào đây 💖</button>
+    <button class="btn loading" id="start" disabled>Đang chuẩn bị quà... ✨</button>
   </div>
 
   <!-- Step 2: The Grand Centerpiece Flower (Same architecture as garden flowers) -->
@@ -740,7 +756,60 @@
       }
     }
 
-    document.getElementById('start').onclick = () => {
+    const startBtn = document.getElementById('start');
+    let assetsLoaded = false;
+
+    function setAssetsReady() {
+      if (assetsLoaded) return;
+      assetsLoaded = true;
+      if (startBtn) {
+        startBtn.classList.remove('loading');
+        startBtn.removeAttribute('disabled');
+        startBtn.textContent = 'Ấn vào đây 💖';
+      }
+    }
+
+    // 1. Tải trước ảnh người yêu vào bộ nhớ đệm
+    const preImg = new Image();
+    let imgReady = false;
+    preImg.onload = preImg.onerror = () => {
+      imgReady = true;
+      checkAllAssets();
+    };
+    preImg.src = 'assets/nguoi-yeu.jpg';
+    if (preImg.complete) {
+      imgReady = true;
+    }
+
+    // 2. Tải trước nhạc nền
+    let audioReady = false;
+    if (bgMusic) {
+      if (bgMusic.readyState >= 2) {
+        audioReady = true;
+      } else {
+        bgMusic.addEventListener('canplay', () => {
+          audioReady = true;
+          checkAllAssets();
+        }, { once: true });
+        bgMusic.addEventListener('loadeddata', () => {
+          audioReady = true;
+          checkAllAssets();
+        }, { once: true });
+      }
+    }
+
+    function checkAllAssets() {
+      if (imgReady && (audioReady || (bgMusic && bgMusic.readyState >= 1))) {
+        setAssetsReady();
+      }
+    }
+
+    // Cơ chế an toàn: Tự mở nút sau tối đa 2.2 giây nếu trình duyệt chặn nạp trước âm thanh
+    setTimeout(setAssetsReady, 2200);
+    checkAllAssets();
+
+    startBtn.onclick = () => {
+      if (!assetsLoaded) return;
       playMusic();
       start();
     };
